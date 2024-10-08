@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Basy.Models
 {
-    public class Template
+    public class CredentialUnit
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Text { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public string Username { get; set; }
 
         public override string ToString()

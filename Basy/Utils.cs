@@ -147,6 +147,8 @@ namespace Basy
             Utils.EnsureTableExists(Queries.CreateLogsTable);
 
             //PopulateSampleTemplates();
+
+            Utils.EnsureTableExists(Queries.CreateCredentialsTable);
         }
 
         public static void PopulateSampleTemplates()

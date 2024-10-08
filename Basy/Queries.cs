@@ -41,6 +41,18 @@ namespace Basy
                        FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
            )";
 
+        public const string CreateCredentialsTable = @"
+                       CREATE TABLE IF NOT EXISTS credentials (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       name TEXT NOT NULL,
+                       login TEXT NOT NULL,
+                       password TEXT NOT NULL,
+                       link TEXT,
+                       additional_info TEXT,
+                       user_id INTEGER NOT NULL,
+                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+           )";
+
         public const string CreateLogsTable = @"
                        CREATE TABLE IF NOT EXISTS logs (
                        id INTEGER PRIMARY KEY AUTOINCREMENT,

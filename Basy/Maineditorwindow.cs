@@ -35,7 +35,7 @@ namespace Basy
         {
             if (rbCredentials.Checked)
             {
-                mainContentPanel.Controls.Clear();
+                FillUserControl(new CredentialsControl());
             }
         }
 
