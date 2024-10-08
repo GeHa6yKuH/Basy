@@ -1,0 +1,36 @@
+Table templates {
+  id integer [primary key]
+  name varchar
+  text text
+  created_at timestamp
+  category_id integer
+  user_id integer 
+}
+
+Table categories {
+  id integer [primary key]
+  name varchar
+}
+
+Table users {
+  id integer [primary key]
+  name varchar
+  password varchar
+}
+
+Table credential_units {
+  id integer [primary key]
+  name varchar
+  login varchar
+  password varchar
+  link varchar
+  additional_info text
+  user_id integer
+}
+
+Ref: credential_units.user_id > users.id // many-to-one
+
+
+Ref: "users"."id" < "templates"."user_id"
+
+Ref: "templates"."category_id" <> "categories"."id"
