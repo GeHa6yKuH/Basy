@@ -3,34 +3,45 @@ Table templates {
   name varchar
   text text
   created_at timestamp
-  category_id integer
-  user_id integer 
+  has_parameters bool
+  has_versions bool
 }
 
-Table categories {
+Table tags {
   id integer [primary key]
   name varchar
 }
 
-Table users {
-  id integer [primary key]
-  name varchar
-  password varchar
+Table templatesTags {
+  template_id integer
+  tag_id integer
 }
 
-Table credential_units {
+Table parameters {
   id integer [primary key]
   name varchar
-  login varchar
-  password varchar
-  link varchar
-  additional_info text
-  user_id integer
+  template_id integer
 }
 
-Ref: credential_units.user_id > users.id // many-to-one
+Table logs {
+  id integer [primary key]
+  action text
+  timestamp timestamp
+}
+
+Table versions {
+  id integer [primary key]
+  template_id integer
+  name varchar
+  text text
+}
+
+Ref: parameters.template_id > templates.id
+
+Ref: versions.template_id > templates.id
+
+Ref: "tags"."id" < "templatesTags"."tag_id"
 
 
-Ref: "users"."id" < "templates"."user_id"
 
-Ref: "templates"."category_id" <> "categories"."id"
+Ref: "templates"."id" < "templatesTags"."template_id"
