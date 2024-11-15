@@ -3,8 +3,7 @@ Table templates {
   name varchar
   text text
   created_at timestamp
-  has_parameters bool
-  has_versions bool
+  has_more_versions bool
 }
 
 Table tags {
@@ -20,7 +19,7 @@ Table templatesTags {
 Table parameters {
   id integer [primary key]
   name varchar
-  template_id integer
+  version_id integer
 }
 
 Table logs {
@@ -34,9 +33,9 @@ Table versions {
   template_id integer
   name varchar
   text text
+  has_parameters bool
 }
 
-Ref: parameters.template_id > templates.id
 
 Ref: versions.template_id > templates.id
 
@@ -45,3 +44,5 @@ Ref: "tags"."id" < "templatesTags"."tag_id"
 
 
 Ref: "templates"."id" < "templatesTags"."template_id"
+
+Ref: "versions"."id" < "parameters"."version_id"

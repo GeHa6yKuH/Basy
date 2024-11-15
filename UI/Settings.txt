@@ -1,0 +1,10 @@
+Settings
+
+1) Start with system - general; start with editor - general
+2) Show deletion dialog - general
+3) Action when double clicking a clip in editor - edit or copy - general
+4) hotkeys - menu open, editor open, clipboard saved items menu open - Hotkeys
+5) position of popup window on the screen - popup windows
+6) default pasting method - General
+7) save images to clips? - popup windows
+8) set to default button

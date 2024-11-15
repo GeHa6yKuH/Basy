@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +8,6 @@ namespace Basy
 {
     public static class Queries
     {
-        public const string CreateUsersTable = @"
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL,
-            email TEXT NOT NULL,
-            password TEXT NOT NULL
-        )";
 
         public const string CreateTemplatesTable = @"
                        CREATE TABLE IF NOT EXISTS templates (
@@ -22,14 +15,34 @@ namespace Basy
                        name TEXT NOT NULL,
                        text TEXT NOT NULL,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       user_id INTEGER NOT NULL,
-                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+                       has_more_versions INTEGER NOT NULL,
+                       initial_version_id INTEGER,
+                       FOREIGN KEY (initial_version_id) REFERENCES versions(id) ON DELETE CASCADE
+           )";
+
+        public const string CreateVersionsTable = @"
+                       CREATE TABLE IF NOT EXISTS versions (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       template_id INTEGER NOT NULL,
+                       name TEXT NOT NULL,
+                       text TEXT NOT NULL,
+                       has_parameters INTEGER NOT NULL,
+                       FOREIGN KEY (template_id) REFERENCES templates(id) ON DELETE CASCADE
+           )";
+
+        public const string CreateParametersTable = @"
+                       CREATE TABLE IF NOT EXISTS parameters (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       name TEXT NOT NULL,
+                       version_id INTEGER NOT NULL,
+                       FOREIGN KEY (version_id) REFERENCES versions(id) ON DELETE CASCADE
            )";
 
         public const string CreateTagsTable = @"
                        CREATE TABLE IF NOT EXISTS tags (
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                       name TEXT NOT NULL
+                       name TEXT NOT NULL,
+                       color TEXT NOT NULL UNIQUE
            )";
 
         public const string CreateTemplatesTagsTable = @"
@@ -41,25 +54,13 @@ namespace Basy
                        FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
            )";
 
-        public const string CreateCredentialsTable = @"
-                       CREATE TABLE IF NOT EXISTS credentials (
-                       id INTEGER PRIMARY KEY AUTOINCREMENT,
-                       name TEXT NOT NULL,
-                       login TEXT NOT NULL,
-                       password TEXT NOT NULL,
-                       link TEXT,
-                       additional_info TEXT,
-                       user_id INTEGER NOT NULL,
-                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-           )";
 
         public const string CreateLogsTable = @"
                        CREATE TABLE IF NOT EXISTS logs (
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                       user_id INTEGER NOT NULL,
                        action TEXT NOT NULL,
-                       timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+                       type TEXT NOT NULL,
+                       timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
            )";
 
     }

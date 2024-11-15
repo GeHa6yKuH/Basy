@@ -28,99 +28,240 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnAddTemplate = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblTemplates = new System.Windows.Forms.Label();
+            this.cbSortGrid = new System.Windows.Forms.ComboBox();
+            this.lblSortBy = new System.Windows.Forms.Label();
             this.dGVTemplates = new System.Windows.Forms.DataGridView();
+            this.mbtnDelete = new MaterialSkin.Controls.MaterialButton();
+            this.mbtnAdd = new MaterialSkin.Controls.MaterialButton();
+            this.mbtnEditTags = new MaterialSkin.Controls.MaterialButton();
+            this.mbtnUpdateGrid = new MaterialSkin.Controls.MaterialButton();
+            this.lblpozor = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dGVTemplates)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDelete.Location = new System.Drawing.Point(754, 102);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(95, 31);
-            this.btnDelete.TabIndex = 9;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnAddTemplate
-            // 
-            this.btnAddTemplate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnAddTemplate.Location = new System.Drawing.Point(866, 102);
-            this.btnAddTemplate.Name = "btnAddTemplate";
-            this.btnAddTemplate.Size = new System.Drawing.Size(62, 31);
-            this.btnAddTemplate.TabIndex = 8;
-            this.btnAddTemplate.Text = "+";
-            this.btnAddTemplate.UseVisualStyleBackColor = true;
             // 
             // lblTemplates
             // 
             this.lblTemplates.AutoSize = true;
-            this.lblTemplates.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTemplates.Location = new System.Drawing.Point(31, 75);
+            this.lblTemplates.Font = new System.Drawing.Font("Verdana", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTemplates.Location = new System.Drawing.Point(19, 27);
             this.lblTemplates.Name = "lblTemplates";
-            this.lblTemplates.Size = new System.Drawing.Size(141, 31);
+            this.lblTemplates.Size = new System.Drawing.Size(151, 32);
             this.lblTemplates.TabIndex = 7;
             this.lblTemplates.Text = "Templates";
             // 
+            // cbSortGrid
+            // 
+            this.cbSortGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSortGrid.BackColor = System.Drawing.Color.Azure;
+            this.cbSortGrid.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSortGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cbSortGrid.FormattingEnabled = true;
+            this.cbSortGrid.Items.AddRange(new object[] {
+            "Name (A - Z)",
+            "Name (Z - A)",
+            "Creation date (new to old)",
+            "Tags (more to less tags)",
+            "Tags (choose tags)"});
+            this.cbSortGrid.Location = new System.Drawing.Point(403, 63);
+            this.cbSortGrid.Name = "cbSortGrid";
+            this.cbSortGrid.Size = new System.Drawing.Size(188, 28);
+            this.cbSortGrid.TabIndex = 12;
+            this.cbSortGrid.SelectedIndexChanged += new System.EventHandler(this.cbSortGrid_SelectedIndexChanged);
+            // 
+            // lblSortBy
+            // 
+            this.lblSortBy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSortBy.AutoSize = true;
+            this.lblSortBy.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSortBy.Location = new System.Drawing.Point(400, 27);
+            this.lblSortBy.Name = "lblSortBy";
+            this.lblSortBy.Size = new System.Drawing.Size(77, 18);
+            this.lblSortBy.TabIndex = 13;
+            this.lblSortBy.Text = "Sort by:";
+            // 
             // dGVTemplates
             // 
+            this.dGVTemplates.AllowUserToAddRows = false;
             this.dGVTemplates.AllowUserToDeleteRows = false;
-            this.dGVTemplates.AllowUserToOrderColumns = true;
-            this.dGVTemplates.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dGVTemplates.AllowUserToResizeColumns = false;
+            this.dGVTemplates.AllowUserToResizeRows = false;
+            this.dGVTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dGVTemplates.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(91)))));
             this.dGVTemplates.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dGVTemplates.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGVTemplates.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGVTemplates.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dGVTemplates.ColumnHeadersHeight = 50;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dGVTemplates.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dGVTemplates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dGVTemplates.DefaultCellStyle = dataGridViewCellStyle8;
             this.dGVTemplates.EnableHeadersVisualStyles = false;
             this.dGVTemplates.GridColor = System.Drawing.Color.SteelBlue;
-            this.dGVTemplates.Location = new System.Drawing.Point(37, 149);
+            this.dGVTemplates.Location = new System.Drawing.Point(25, 114);
             this.dGVTemplates.Name = "dGVTemplates";
             this.dGVTemplates.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(91)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SteelBlue;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGVTemplates.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(66)))), ((int)(((byte)(91)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGVTemplates.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dGVTemplates.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dGVTemplates.RowTemplate.Height = 40;
-            this.dGVTemplates.Size = new System.Drawing.Size(891, 415);
-            this.dGVTemplates.TabIndex = 6;
+            this.dGVTemplates.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.dGVTemplates.Size = new System.Drawing.Size(758, 371);
+            this.dGVTemplates.TabIndex = 14;
+            // 
+            // mbtnDelete
+            // 
+            this.mbtnDelete.AutoSize = false;
+            this.mbtnDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mbtnDelete.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.mbtnDelete.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mbtnDelete.Depth = 0;
+            this.mbtnDelete.FlatAppearance.BorderSize = 0;
+            this.mbtnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mbtnDelete.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mbtnDelete.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.mbtnDelete.HighEmphasis = true;
+            this.mbtnDelete.Icon = null;
+            this.mbtnDelete.Location = new System.Drawing.Point(622, 60);
+            this.mbtnDelete.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mbtnDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnDelete.Name = "mbtnDelete";
+            this.mbtnDelete.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mbtnDelete.Size = new System.Drawing.Size(86, 31);
+            this.mbtnDelete.TabIndex = 15;
+            this.mbtnDelete.Text = "Delete";
+            this.mbtnDelete.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mbtnDelete.UseAccentColor = false;
+            this.mbtnDelete.UseVisualStyleBackColor = false;
+            this.mbtnDelete.Click += new System.EventHandler(this.mbtnDelete_Click);
+            // 
+            // mbtnAdd
+            // 
+            this.mbtnAdd.AutoSize = false;
+            this.mbtnAdd.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mbtnAdd.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.mbtnAdd.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mbtnAdd.Depth = 0;
+            this.mbtnAdd.FlatAppearance.BorderSize = 0;
+            this.mbtnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mbtnAdd.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mbtnAdd.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.mbtnAdd.HighEmphasis = true;
+            this.mbtnAdd.Icon = null;
+            this.mbtnAdd.Location = new System.Drawing.Point(729, 60);
+            this.mbtnAdd.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mbtnAdd.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnAdd.Name = "mbtnAdd";
+            this.mbtnAdd.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mbtnAdd.Size = new System.Drawing.Size(54, 31);
+            this.mbtnAdd.TabIndex = 16;
+            this.mbtnAdd.Text = "+";
+            this.mbtnAdd.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mbtnAdd.UseAccentColor = false;
+            this.mbtnAdd.UseVisualStyleBackColor = false;
+            this.mbtnAdd.Click += new System.EventHandler(this.mbtnAdd_Click);
+            // 
+            // mbtnEditTags
+            // 
+            this.mbtnEditTags.AutoSize = false;
+            this.mbtnEditTags.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mbtnEditTags.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.mbtnEditTags.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mbtnEditTags.Depth = 0;
+            this.mbtnEditTags.FlatAppearance.BorderSize = 0;
+            this.mbtnEditTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mbtnEditTags.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mbtnEditTags.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.mbtnEditTags.HighEmphasis = true;
+            this.mbtnEditTags.Icon = null;
+            this.mbtnEditTags.Location = new System.Drawing.Point(25, 505);
+            this.mbtnEditTags.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mbtnEditTags.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnEditTags.Name = "mbtnEditTags";
+            this.mbtnEditTags.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mbtnEditTags.Size = new System.Drawing.Size(95, 25);
+            this.mbtnEditTags.TabIndex = 17;
+            this.mbtnEditTags.Text = "Edit Tags";
+            this.mbtnEditTags.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mbtnEditTags.UseAccentColor = false;
+            this.mbtnEditTags.UseVisualStyleBackColor = false;
+            this.mbtnEditTags.Click += new System.EventHandler(this.mbtnEditTags_Click);
+            // 
+            // mbtnUpdateGrid
+            // 
+            this.mbtnUpdateGrid.AutoSize = false;
+            this.mbtnUpdateGrid.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mbtnUpdateGrid.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.mbtnUpdateGrid.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mbtnUpdateGrid.Depth = 0;
+            this.mbtnUpdateGrid.FlatAppearance.BorderSize = 0;
+            this.mbtnUpdateGrid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mbtnUpdateGrid.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.mbtnUpdateGrid.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.mbtnUpdateGrid.HighEmphasis = true;
+            this.mbtnUpdateGrid.Icon = null;
+            this.mbtnUpdateGrid.Location = new System.Drawing.Point(668, 505);
+            this.mbtnUpdateGrid.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mbtnUpdateGrid.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mbtnUpdateGrid.Name = "mbtnUpdateGrid";
+            this.mbtnUpdateGrid.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mbtnUpdateGrid.Size = new System.Drawing.Size(115, 25);
+            this.mbtnUpdateGrid.TabIndex = 18;
+            this.mbtnUpdateGrid.Text = "Update Table";
+            this.mbtnUpdateGrid.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mbtnUpdateGrid.UseAccentColor = false;
+            this.mbtnUpdateGrid.UseVisualStyleBackColor = false;
+            this.mbtnUpdateGrid.Click += new System.EventHandler(this.mbtnUpdateGrid_Click);
+            // 
+            // lblpozor
+            // 
+            this.lblpozor.AutoSize = true;
+            this.lblpozor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblpozor.Location = new System.Drawing.Point(249, 45);
+            this.lblpozor.Name = "lblpozor";
+            this.lblpozor.Size = new System.Drawing.Size(60, 24);
+            this.lblpozor.TabIndex = 19;
+            this.lblpozor.Text = "label1";
             // 
             // TemplatesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnAddTemplate);
-            this.Controls.Add(this.lblTemplates);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.lblpozor);
+            this.Controls.Add(this.mbtnUpdateGrid);
+            this.Controls.Add(this.mbtnEditTags);
+            this.Controls.Add(this.mbtnAdd);
+            this.Controls.Add(this.mbtnDelete);
             this.Controls.Add(this.dGVTemplates);
+            this.Controls.Add(this.lblSortBy);
+            this.Controls.Add(this.cbSortGrid);
+            this.Controls.Add(this.lblTemplates);
             this.Name = "TemplatesControl";
-            this.Size = new System.Drawing.Size(1003, 618);
+            this.Size = new System.Drawing.Size(815, 554);
             this.Load += new System.EventHandler(this.TemplatesControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dGVTemplates)).EndInit();
             this.ResumeLayout(false);
@@ -129,10 +270,14 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnAddTemplate;
         private System.Windows.Forms.Label lblTemplates;
+        private System.Windows.Forms.ComboBox cbSortGrid;
+        private System.Windows.Forms.Label lblSortBy;
         private System.Windows.Forms.DataGridView dGVTemplates;
+        private MaterialSkin.Controls.MaterialButton mbtnDelete;
+        private MaterialSkin.Controls.MaterialButton mbtnAdd;
+        private MaterialSkin.Controls.MaterialButton mbtnEditTags;
+        private MaterialSkin.Controls.MaterialButton mbtnUpdateGrid;
+        private System.Windows.Forms.Label lblpozor;
     }
 }

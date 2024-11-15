@@ -10,8 +10,11 @@ namespace Basy
 {
     public class BaseBasyForm : Form
     {
+        Maineditorwindow _mainEditorWindow;
+
         public BaseBasyForm()
         {
+            InitializeComponent();
             this.FormClosing += Close_Hide;
         }
 
@@ -19,6 +22,25 @@ namespace Basy
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BaseBasyForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "BaseBasyForm";
+            this.Load += new System.EventHandler(this.BaseBasyForm_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void BaseBasyForm_Load(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            this.ShowInTaskbar = false;
         }
     }
 }

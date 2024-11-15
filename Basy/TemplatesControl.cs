@@ -1,4 +1,6 @@
 ﻿using Basy.Models;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,43 @@ namespace Basy
     {
 
         private BindingList<Template> templates = new BindingList<Template>();
+        private bool tagsColumnAdded = false;
+        private Graphics _graphicsForCircles;
 
         public TemplatesControl()
         {
             InitializeComponent();
         }
 
-        private void DGVTemplates_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void PaintTagsColorCirclesForTagsColumn(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex == dGVTemplates.Columns["Tags"].Index && e.RowIndex >= 0)
+            {
+                e.PaintBackground(e.CellBounds, true);
+
+                Template template = (Template)dGVTemplates.Rows[e.RowIndex].DataBoundItem;
+
+                if (template != null && template.Colors != null && template.Colors.Count > 0)
+                {
+                    int ellipseRadius = 18;
+                    int margin = 10;
+                    int x = e.CellBounds.Left + margin;
+
+                    foreach (Color color in template.Colors)
+                    {
+                        using (Brush brush = new SolidBrush(color))
+                        {
+                            e.Graphics.FillEllipse(brush, x, e.CellBounds.Top + (e.CellBounds.Height - ellipseRadius) / 2, ellipseRadius, ellipseRadius);
+                            x += ellipseRadius + margin;
+                        }
+                    }
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void dGVTemplates_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -30,8 +62,8 @@ namespace Basy
 
                 if (templates.Count != 0)
                 {
-                    Template templateToModify = templates.FirstOrDefault(t => t.Name == selectedRow.Cells["Name"].Value.ToString());
-                    if (templateToModify != null)
+                    Template templateToModify = templates.FirstOrDefault(t => t.Id == int.Parse(selectedRow.Cells["Id"].Value.ToString()));
+                    if (templateToModify != null && !string.IsNullOrEmpty(templateToModify.Name))
                     {
                         TemplateEditor templateEditor = new TemplateEditor(templateToModify, this);
                         templateEditor.Show();
@@ -42,67 +74,172 @@ namespace Basy
 
         public void PopulateGrid()
         {
-
-            try
-            {
                 templates.Clear();
-                //dGVTemplates.Invalidate();
 
                 Utils.EnsureTablesExist();
 
-                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-                {
-                    connection.Open();
-
-                    string query = @"
-                        SELECT t.id, t.name, t.text, u.username
-                        FROM templates t
-                        JOIN users u ON t.user_id = u.id";
-
-                    using (var command = new SqliteCommand(query, connection))
-                    {
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                templates.Add(new Template
-                                {
-                                    Id = int.Parse(reader["id"].ToString()),
-                                    Name = reader["name"].ToString(),
-                                    Text = reader["text"].ToString(),
-                                    Username = reader["username"].ToString()
-                                });
-                            }
-                        }
-                    }
-                }
+                templates = Utils.GetAllTemplates();
 
                 dGVTemplates.DataSource = templates;
-                dGVTemplates.Refresh();
 
-                dGVTemplates.Columns["Id"].Visible = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
-        private void btnAddTemplate_Click(object sender, EventArgs e)
-        {
-            NewTemplate newTemplate = new NewTemplate(this);
-            newTemplate.Show();
+                ResetGridColumnSettings();
         }
 
         private void TemplatesControl_Load(object sender, EventArgs e)
         {
-            Utils.EnsureTableExists(Queries.CreateUsersTable);
             PopulateGrid();
 
-            dGVTemplates.CellDoubleClick += DGVTemplates_CellDoubleClick;
+            dGVTemplates.CellDoubleClick += dGVTemplates_CellDoubleClick;
+            dGVTemplates.CellPainting += PaintTagsColorCirclesForTagsColumn;
+            //dGVTemplates.Layout += AdjustWidth;
+            SelectIndexInSortGrid(2);
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void AdjustWidth(object sender, LayoutEventArgs e)
+        {
+            if (dGVTemplates.Controls.OfType<VScrollBar>().FirstOrDefault()?.Visible == true)
+            {
+                dGVTemplates.Size = new Size(947, 415);
+            }
+            else
+            {
+                dGVTemplates.Width = 947 - SystemInformation.VerticalScrollBarWidth;
+            }
+        }
+
+        private void cbSortGrid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSortGrid.SelectedIndex >= 0)
+            {
+                switch (cbSortGrid.SelectedIndex)
+                {
+                    case 0:
+                        templates = new BindingList<Template>(templates.OrderBy(x => x.Name).ToList());
+                        ClearGraphics();
+                        dGVTemplates.PerformLayout();
+                        break;
+                    case 1:
+                        templates = new BindingList<Template>(templates.OrderByDescending(x => x.Name).ToList());
+                        ClearGraphics();
+                        dGVTemplates.PerformLayout();
+                        break;
+                    case 2:
+                        templates = new BindingList<Template>(templates.OrderBy(x => x.CreationDate).ToList());
+                        ClearGraphics();
+                        dGVTemplates.PerformLayout();
+                        break;
+                    case 3:
+                        templates = new BindingList<Template>(templates.OrderByDescending(x => x.Colors.Count).ToList());
+                        ClearGraphics();
+                        dGVTemplates.PerformLayout();
+                        break;
+                    case 4:
+                        ChooseTagsToSort chooseTagsToSort = new ChooseTagsToSort();
+
+                        if (chooseTagsToSort.ShowDialog() == DialogResult.OK && chooseTagsToSort._tagsToPass != null
+                            && chooseTagsToSort._tagsToPass.Count >= 0)
+                        {
+                            List<Tag> selectedTags = chooseTagsToSort._tagsToPass;
+                            List<Template> templatesSortedByTags =  templates
+                                .Where(t => selectedTags.Any(tag => t.Colors.Contains(tag.Color)))
+                                .OrderBy(x => x.CreationDate)
+                                .ToList();
+
+                            dGVTemplates.DataSource = templatesSortedByTags;
+                            dGVTemplates.Refresh();
+                            ClearGraphics();
+                            DrawColorCirclesUnderCbSortBox(selectedTags);
+
+                            ResetGridColumnSettings();
+                            return;
+                        }
+                        else
+                        {
+                            cbSortGrid.SelectedIndex = 2;
+                        }
+                        break;
+                }
+
+                dGVTemplates.DataSource = templates;
+                dGVTemplates.Refresh();
+            }
+        }
+
+        public void SelectIndexInSortGrid(int index)
+        {
+            cbSortGrid.SelectedIndex = index;
+        }
+
+        private void ClearGraphics()
+        {
+            this.Invalidate();
+            this.Update();
+        }
+
+        private void DrawColorCirclesUnderCbSortBox(List<Tag> selectedTags)
+        {
+            _graphicsForCircles = CreateGraphics();
+
+            int margin = 5;
+            int ellipseRadius = 15;
+            int x = lblSortBy.Right;
+            int y = lblSortBy.Top;
+
+            foreach (Tag tag in selectedTags)
+            {
+                using (Brush brush = new SolidBrush(tag.Color))
+                {
+                    _graphicsForCircles.FillEllipse(
+                        brush,
+                        x,
+                        y,
+                        ellipseRadius,
+                        ellipseRadius);
+
+                    x += ellipseRadius + margin;
+                }
+            }
+        }
+
+        private void ResetGridColumnSettings()
+        {
+            dGVTemplates.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            dGVTemplates.Columns["Id"].Visible = false;
+            dGVTemplates.Columns["CreationDate"].Visible = false;
+            dGVTemplates.Columns["InitialVersionId"].Visible = false;
+
+            int rowHeaderWidth = dGVTemplates.RowHeadersWidth;
+            int availabledgvWidth = dGVTemplates.Width - rowHeaderWidth;
+
+            dGVTemplates.Columns["Name"].Width = (int)(availabledgvWidth * 0.2);
+            dGVTemplates.Columns["Text"].Width = (int)(availabledgvWidth * 0.613);
+
+            if (tagsColumnAdded == true)
+            {
+                dGVTemplates.Columns["Tags"].Width = (int)(availabledgvWidth * 0.18);
+            }
+            else
+            {
+                DataGridViewColumn tagsColumn = new DataGridViewColumn();
+                tagsColumn.Name = "Tags";
+                tagsColumn.HeaderText = "Tags";
+                tagsColumn.ReadOnly = true;
+                tagsColumn.CellTemplate = new DataGridViewTextBoxCell();
+                tagsColumn.Width = (int)(availabledgvWidth * 0.17);
+
+                dGVTemplates.Columns.Add(tagsColumn);
+
+                tagsColumnAdded = true;
+            }
+
+            dGVTemplates.ScrollBars = ScrollBars.Vertical;
+            dGVTemplates.PerformLayout();
+
+            dGVTemplates.Refresh();
+        }
+
+        private void mbtnDelete_Click(object sender, EventArgs e)
         {
             try
             {
@@ -118,6 +255,8 @@ namespace Basy
                     if (userConfirms == DialogResult.Yes)
                     {
                         Utils.deleteTemplateById(id);
+                        Utils.LogToHistory(Operations.Delete, $"Template {templateToDelete.Name}" +
+                        $" with text {templateToDelete.Text} has been deleted!");
                         dGVTemplates.Refresh();
                         PopulateGrid();
                     }
@@ -127,6 +266,23 @@ namespace Basy
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+
+        private void mbtnAdd_Click(object sender, EventArgs e)
+        {
+            NewTemplate newTemplate = new NewTemplate(this);
+            newTemplate.Show();
+        }
+
+        private void mbtnEditTags_Click(object sender, EventArgs e)
+        {
+            TagsGlobalEditor tagsGlobalEditor = new TagsGlobalEditor(this);
+            tagsGlobalEditor.Show();
+        }
+
+        private void mbtnUpdateGrid_Click(object sender, EventArgs e)
+        {
+            SelectIndexInSortGrid(2);
         }
     }
 }
