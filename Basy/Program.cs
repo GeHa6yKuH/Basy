@@ -18,6 +18,7 @@ namespace Basy
 
         private static IKeyboardMouseEvents globalHook;
         private static NotifyIcon notifyIcon;
+        private static HashSet<Keys> pressedKeys = new HashSet<Keys>();
 
         [STAThread]
         static void Main()
@@ -38,6 +39,7 @@ namespace Basy
 
             globalHook = Hook.GlobalEvents();
             globalHook.KeyDown += GlobalHook_KeyDown;
+            globalHook.KeyUp += GlobalHook_KeyUp;
             Application.ApplicationExit += Application_ApplicationExit;
 
             Application.ThreadException += (sender, args) => HandleException(args.Exception);
@@ -47,7 +49,10 @@ namespace Basy
 
             Maineditorwindow mainEditorWindow = new Maineditorwindow();
 
-            mainEditorWindow.Show();
+            if (Properties.Settings.Default.ShouldOpenEdittorOnStart)
+            {
+                mainEditorWindow.Show();
+            }
 
             Application.Run(baseBasyForm);
         }
@@ -60,10 +65,44 @@ namespace Basy
 
         private static void GlobalHook_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) pressedKeys.Add(Keys.ControlKey);
+            else if (e.KeyCode == Keys.LShiftKey || e.KeyCode == Keys.RShiftKey) pressedKeys.Add(Keys.ShiftKey);
+            else if (e.KeyCode == Keys.LMenu || e.KeyCode == Keys.RMenu) pressedKeys.Add(Keys.Menu);
+            else pressedKeys.Add(e.KeyCode);
+
+            if (string.Join(" + ", pressedKeys) == Properties.Settings.Default.Hotkey)
+            {
+                ShowTemplatePopup();
+            }
+
             if (e.Control && e.Shift && e.KeyCode == Keys.Y)
             {
                 ShowTemplatePopup();
             }
+
+            // Editor
+
+            if (string.Join(" + ", pressedKeys) == Properties.Settings.Default.HotkeyEditor)
+            {
+                if (!Utils.FormIsOpenByName("Maineditorwindow"))
+                {
+                    Maineditorwindow maineditorwindow = new Maineditorwindow();
+                    maineditorwindow.Show();
+                }
+            }
+        }
+
+        private static void GlobalHook_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!pressedKeys.Contains(e.KeyCode))
+            {
+                return;
+            }
+            if (e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) pressedKeys.Remove(Keys.ControlKey);
+            else if (e.KeyCode == Keys.LShiftKey || e.KeyCode == Keys.RShiftKey) pressedKeys.Remove(Keys.ShiftKey);
+            else if (e.KeyCode == Keys.LMenu || e.KeyCode == Keys.RMenu) pressedKeys.Remove(Keys.Alt);
+            else if (e.KeyCode == Keys.LMenu || e.KeyCode == Keys.RMenu) pressedKeys.Remove(Keys.Menu);
+            else pressedKeys.Remove(e.KeyCode);
         }
 
         private static void ShowTemplatePopup()
@@ -71,8 +110,19 @@ namespace Basy
             Screen currentScreen = Screen.FromPoint(Cursor.Position);
             PopupWindow popupWindow = new PopupWindow();
 
-            popupWindow.Left = currentScreen.Bounds.Left;
-            popupWindow.Top = currentScreen.Bounds.Top;
+            string positionString = Properties.Settings.Default.TemplatesPosition;
+
+            bool isLeft = positionString.Contains("Left");
+            bool isTop = positionString.Contains("Top");
+
+            int x = isLeft ? currentScreen.Bounds.Left : currentScreen.Bounds.Right - popupWindow.Width;
+            int y = isTop ? currentScreen.Bounds.Top : currentScreen.Bounds.Bottom - popupWindow.Height;
+
+            popupWindow.Location = new Point(x, y);
+
+            /*popupWindow.Left = currentScreen.Bounds.Left;
+            popupWindow.Top = currentScreen.Bounds.Top;*/
+
             popupWindow.StartPosition = FormStartPosition.Manual;
 
             popupWindow.ShowInTaskbar = false;

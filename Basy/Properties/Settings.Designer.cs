@@ -34,5 +34,113 @@ namespace Basy.Properties {
                 this["LastSortIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool StartWithSystem {
+            get {
+                return ((bool)(this["StartWithSystem"]));
+            }
+            set {
+                this["StartWithSystem"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShouldOpenEdittorOnStart {
+            get {
+                return ((bool)(this["ShouldOpenEdittorOnStart"]));
+            }
+            set {
+                this["ShouldOpenEdittorOnStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Hotkey {
+            get {
+                return ((string)(this["Hotkey"]));
+            }
+            set {
+                this["Hotkey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HotkeyClipboard {
+            get {
+                return ((string)(this["HotkeyClipboard"]));
+            }
+            set {
+                this["HotkeyClipboard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HotkeyEditor {
+            get {
+                return ((string)(this["HotkeyEditor"]));
+            }
+            set {
+                this["HotkeyEditor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Top Left")]
+        public string TemplatesPosition {
+            get {
+                return ((string)(this["TemplatesPosition"]));
+            }
+            set {
+                this["TemplatesPosition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Top Left")]
+        public string ClipboardPosition {
+            get {
+                return ((string)(this["ClipboardPosition"]));
+            }
+            set {
+                this["ClipboardPosition"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowVersionsOnHover {
+            get {
+                return ((bool)(this["ShowVersionsOnHover"]));
+            }
+            set {
+                this["ShowVersionsOnHover"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowTemplateTextOnHover {
+            get {
+                return ((bool)(this["ShowTemplateTextOnHover"]));
+            }
+            set {
+                this["ShowTemplateTextOnHover"] = value;
+            }
+        }
     }
 }

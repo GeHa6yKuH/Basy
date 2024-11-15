@@ -30,9 +30,9 @@
         {
             this.lblSettings = new System.Windows.Forms.Label();
             this.pnlGeneral = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.mcbOpenEditorOnStart = new MaterialSkin.Controls.MaterialCheckbox();
+            this.mcbStartWithSystem = new MaterialSkin.Controls.MaterialCheckbox();
             this.lblStartWithEditor = new System.Windows.Forms.Label();
-            this.rbStartWithSystem = new System.Windows.Forms.RadioButton();
             this.lblGeneral = new System.Windows.Forms.Label();
             this.lblStartOnSystem = new System.Windows.Forms.Label();
             this.pnlHotkeys = new System.Windows.Forms.Panel();
@@ -47,19 +47,21 @@
             this.lblHotkeys = new System.Windows.Forms.Label();
             this.lblOpenTemplatePopup = new System.Windows.Forms.Label();
             this.pnlPopups = new System.Windows.Forms.Panel();
-            this.rbShowTemplateTextOnHover = new System.Windows.Forms.RadioButton();
+            this.mcbShowTemplateTextOnHover = new MaterialSkin.Controls.MaterialCheckbox();
+            this.mcbShowVersionsOnHover = new MaterialSkin.Controls.MaterialCheckbox();
+            this.mcbSaveImagesToClips = new MaterialSkin.Controls.MaterialCheckbox();
             this.label3 = new System.Windows.Forms.Label();
-            this.rbShowVersionsOnHover = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.btnPositionClip = new System.Windows.Forms.Button();
             this.lblClipboardPopupPosition = new System.Windows.Forms.Label();
             this.btnPositionTemp = new System.Windows.Forms.Button();
-            this.rbSaveImagesToClips = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.lblPopupWindows = new System.Windows.Forms.Label();
             this.lblTemplatesPopupPosition = new System.Windows.Forms.Label();
             this.btnSetAllDefaults = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTemplatesPosition = new System.Windows.Forms.Label();
+            this.lblClipboardPosition = new System.Windows.Forms.Label();
             this.pnlGeneral.SuspendLayout();
             this.pnlHotkeys.SuspendLayout();
             this.pnlPopups.SuspendLayout();
@@ -79,25 +81,48 @@
             // 
             this.pnlGeneral.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.pnlGeneral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlGeneral.Controls.Add(this.radioButton1);
+            this.pnlGeneral.Controls.Add(this.mcbOpenEditorOnStart);
+            this.pnlGeneral.Controls.Add(this.mcbStartWithSystem);
             this.pnlGeneral.Controls.Add(this.lblStartWithEditor);
-            this.pnlGeneral.Controls.Add(this.rbStartWithSystem);
             this.pnlGeneral.Controls.Add(this.lblGeneral);
             this.pnlGeneral.Controls.Add(this.lblStartOnSystem);
             this.pnlGeneral.Location = new System.Drawing.Point(18, 126);
             this.pnlGeneral.Name = "pnlGeneral";
-            this.pnlGeneral.Size = new System.Drawing.Size(485, 143);
+            this.pnlGeneral.Size = new System.Drawing.Size(516, 143);
             this.pnlGeneral.TabIndex = 9;
             // 
-            // radioButton1
+            // mcbOpenEditorOnStart
             // 
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButton1.Location = new System.Drawing.Point(224, 102);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(18, 23);
-            this.radioButton1.TabIndex = 13;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.mcbOpenEditorOnStart.AutoSize = true;
+            this.mcbOpenEditorOnStart.Depth = 0;
+            this.mcbOpenEditorOnStart.Location = new System.Drawing.Point(224, 92);
+            this.mcbOpenEditorOnStart.Margin = new System.Windows.Forms.Padding(0);
+            this.mcbOpenEditorOnStart.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mcbOpenEditorOnStart.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mcbOpenEditorOnStart.Name = "mcbOpenEditorOnStart";
+            this.mcbOpenEditorOnStart.ReadOnly = false;
+            this.mcbOpenEditorOnStart.Ripple = true;
+            this.mcbOpenEditorOnStart.Size = new System.Drawing.Size(35, 37);
+            this.mcbOpenEditorOnStart.TabIndex = 15;
+            this.mcbOpenEditorOnStart.UseVisualStyleBackColor = true;
+            this.mcbOpenEditorOnStart.CheckedChanged += new System.EventHandler(this.mcbOpenEditorOnStart_CheckedChanged);
+            // 
+            // mcbStartWithSystem
+            // 
+            this.mcbStartWithSystem.AutoSize = true;
+            this.mcbStartWithSystem.BackColor = System.Drawing.Color.FloralWhite;
+            this.mcbStartWithSystem.Depth = 0;
+            this.mcbStartWithSystem.Location = new System.Drawing.Point(224, 55);
+            this.mcbStartWithSystem.Margin = new System.Windows.Forms.Padding(0);
+            this.mcbStartWithSystem.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mcbStartWithSystem.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mcbStartWithSystem.Name = "mcbStartWithSystem";
+            this.mcbStartWithSystem.ReadOnly = false;
+            this.mcbStartWithSystem.Ripple = true;
+            this.mcbStartWithSystem.Size = new System.Drawing.Size(35, 37);
+            this.mcbStartWithSystem.TabIndex = 14;
+            this.mcbStartWithSystem.UseVisualStyleBackColor = false;
+            this.mcbStartWithSystem.CheckedChanged += new System.EventHandler(this.mcbStartWithSystem_CheckedChanged);
             // 
             // lblStartWithEditor
             // 
@@ -109,17 +134,6 @@
             this.lblStartWithEditor.TabIndex = 12;
             this.lblStartWithEditor.Text = "Open Editor on start";
             this.lblStartWithEditor.Click += new System.EventHandler(this.lblStartWithEditor_Click);
-            // 
-            // rbStartWithSystem
-            // 
-            this.rbStartWithSystem.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbStartWithSystem.Location = new System.Drawing.Point(224, 62);
-            this.rbStartWithSystem.Name = "rbStartWithSystem";
-            this.rbStartWithSystem.Size = new System.Drawing.Size(18, 23);
-            this.rbStartWithSystem.TabIndex = 11;
-            this.rbStartWithSystem.TabStop = true;
-            this.rbStartWithSystem.UseVisualStyleBackColor = true;
-            this.rbStartWithSystem.CheckedChanged += new System.EventHandler(this.rbStartWithSystem_CheckedChanged);
             // 
             // lblGeneral
             // 
@@ -157,45 +171,48 @@
             this.pnlHotkeys.Controls.Add(this.lblOpenTemplatePopup);
             this.pnlHotkeys.Location = new System.Drawing.Point(18, 290);
             this.pnlHotkeys.Name = "pnlHotkeys";
-            this.pnlHotkeys.Size = new System.Drawing.Size(485, 194);
+            this.pnlHotkeys.Size = new System.Drawing.Size(516, 194);
             this.pnlHotkeys.TabIndex = 10;
             // 
             // btnEditOpenMainEditor
             // 
             this.btnEditOpenMainEditor.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEditOpenMainEditor.Location = new System.Drawing.Point(400, 143);
+            this.btnEditOpenMainEditor.Location = new System.Drawing.Point(452, 143);
             this.btnEditOpenMainEditor.Name = "btnEditOpenMainEditor";
-            this.btnEditOpenMainEditor.Size = new System.Drawing.Size(61, 27);
+            this.btnEditOpenMainEditor.Size = new System.Drawing.Size(50, 27);
             this.btnEditOpenMainEditor.TabIndex = 19;
             this.btnEditOpenMainEditor.Text = "Edit";
             this.btnEditOpenMainEditor.UseVisualStyleBackColor = true;
+            this.btnEditOpenMainEditor.Click += new System.EventHandler(this.btnEditOpenMainEditor_Click);
             // 
             // btnEditOpenClipboardPopup
             // 
             this.btnEditOpenClipboardPopup.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEditOpenClipboardPopup.Location = new System.Drawing.Point(400, 96);
+            this.btnEditOpenClipboardPopup.Location = new System.Drawing.Point(452, 96);
             this.btnEditOpenClipboardPopup.Name = "btnEditOpenClipboardPopup";
-            this.btnEditOpenClipboardPopup.Size = new System.Drawing.Size(61, 27);
+            this.btnEditOpenClipboardPopup.Size = new System.Drawing.Size(50, 27);
             this.btnEditOpenClipboardPopup.TabIndex = 18;
             this.btnEditOpenClipboardPopup.Text = "Edit";
             this.btnEditOpenClipboardPopup.UseVisualStyleBackColor = true;
+            this.btnEditOpenClipboardPopup.Click += new System.EventHandler(this.btnEditOpenClipboardPopup_Click);
             // 
             // btnEditOpenTemplatesPopup
             // 
             this.btnEditOpenTemplatesPopup.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEditOpenTemplatesPopup.Location = new System.Drawing.Point(400, 50);
+            this.btnEditOpenTemplatesPopup.Location = new System.Drawing.Point(452, 50);
             this.btnEditOpenTemplatesPopup.Name = "btnEditOpenTemplatesPopup";
-            this.btnEditOpenTemplatesPopup.Size = new System.Drawing.Size(61, 27);
+            this.btnEditOpenTemplatesPopup.Size = new System.Drawing.Size(50, 27);
             this.btnEditOpenTemplatesPopup.TabIndex = 17;
             this.btnEditOpenTemplatesPopup.Text = "Edit";
             this.btnEditOpenTemplatesPopup.UseVisualStyleBackColor = true;
+            this.btnEditOpenTemplatesPopup.Click += new System.EventHandler(this.btnEditOpenTemplatesPopup_Click);
             // 
             // tbHotkeyMainEditor
             // 
             this.tbHotkeyMainEditor.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbHotkeyMainEditor.Location = new System.Drawing.Point(224, 143);
             this.tbHotkeyMainEditor.Name = "tbHotkeyMainEditor";
-            this.tbHotkeyMainEditor.Size = new System.Drawing.Size(170, 27);
+            this.tbHotkeyMainEditor.Size = new System.Drawing.Size(222, 27);
             this.tbHotkeyMainEditor.TabIndex = 16;
             // 
             // tbHotkeyClipboard
@@ -203,15 +220,15 @@
             this.tbHotkeyClipboard.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbHotkeyClipboard.Location = new System.Drawing.Point(224, 96);
             this.tbHotkeyClipboard.Name = "tbHotkeyClipboard";
-            this.tbHotkeyClipboard.Size = new System.Drawing.Size(170, 27);
+            this.tbHotkeyClipboard.Size = new System.Drawing.Size(222, 27);
             this.tbHotkeyClipboard.TabIndex = 15;
             // 
             // tbHotkeyTemplates
             // 
-            this.tbHotkeyTemplates.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbHotkeyTemplates.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbHotkeyTemplates.Location = new System.Drawing.Point(224, 50);
             this.tbHotkeyTemplates.Name = "tbHotkeyTemplates";
-            this.tbHotkeyTemplates.Size = new System.Drawing.Size(170, 27);
+            this.tbHotkeyTemplates.Size = new System.Drawing.Size(222, 26);
             this.tbHotkeyTemplates.TabIndex = 14;
             // 
             // lblOpenEditor
@@ -259,32 +276,71 @@
             // 
             this.pnlPopups.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.pnlPopups.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPopups.Controls.Add(this.rbShowTemplateTextOnHover);
+            this.pnlPopups.Controls.Add(this.lblClipboardPosition);
+            this.pnlPopups.Controls.Add(this.lblTemplatesPosition);
+            this.pnlPopups.Controls.Add(this.mcbShowTemplateTextOnHover);
+            this.pnlPopups.Controls.Add(this.mcbShowVersionsOnHover);
+            this.pnlPopups.Controls.Add(this.mcbSaveImagesToClips);
             this.pnlPopups.Controls.Add(this.label3);
-            this.pnlPopups.Controls.Add(this.rbShowVersionsOnHover);
             this.pnlPopups.Controls.Add(this.label2);
             this.pnlPopups.Controls.Add(this.btnPositionClip);
             this.pnlPopups.Controls.Add(this.lblClipboardPopupPosition);
             this.pnlPopups.Controls.Add(this.btnPositionTemp);
-            this.pnlPopups.Controls.Add(this.rbSaveImagesToClips);
             this.pnlPopups.Controls.Add(this.label1);
             this.pnlPopups.Controls.Add(this.lblPopupWindows);
             this.pnlPopups.Controls.Add(this.lblTemplatesPopupPosition);
             this.pnlPopups.Location = new System.Drawing.Point(18, 509);
             this.pnlPopups.Margin = new System.Windows.Forms.Padding(3, 3, 3, 8);
             this.pnlPopups.Name = "pnlPopups";
-            this.pnlPopups.Size = new System.Drawing.Size(485, 276);
+            this.pnlPopups.Size = new System.Drawing.Size(516, 276);
             this.pnlPopups.TabIndex = 11;
             // 
-            // rbShowTemplateTextOnHover
+            // mcbShowTemplateTextOnHover
             // 
-            this.rbShowTemplateTextOnHover.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbShowTemplateTextOnHover.Location = new System.Drawing.Point(312, 233);
-            this.rbShowTemplateTextOnHover.Name = "rbShowTemplateTextOnHover";
-            this.rbShowTemplateTextOnHover.Size = new System.Drawing.Size(18, 23);
-            this.rbShowTemplateTextOnHover.TabIndex = 20;
-            this.rbShowTemplateTextOnHover.TabStop = true;
-            this.rbShowTemplateTextOnHover.UseVisualStyleBackColor = true;
+            this.mcbShowTemplateTextOnHover.AutoSize = true;
+            this.mcbShowTemplateTextOnHover.Depth = 0;
+            this.mcbShowTemplateTextOnHover.Location = new System.Drawing.Point(328, 229);
+            this.mcbShowTemplateTextOnHover.Margin = new System.Windows.Forms.Padding(0);
+            this.mcbShowTemplateTextOnHover.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mcbShowTemplateTextOnHover.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mcbShowTemplateTextOnHover.Name = "mcbShowTemplateTextOnHover";
+            this.mcbShowTemplateTextOnHover.ReadOnly = false;
+            this.mcbShowTemplateTextOnHover.Ripple = true;
+            this.mcbShowTemplateTextOnHover.Size = new System.Drawing.Size(35, 37);
+            this.mcbShowTemplateTextOnHover.TabIndex = 22;
+            this.mcbShowTemplateTextOnHover.UseVisualStyleBackColor = true;
+            this.mcbShowTemplateTextOnHover.CheckedChanged += new System.EventHandler(this.mcbShowTemplateTextOnHover_CheckedChanged);
+            // 
+            // mcbShowVersionsOnHover
+            // 
+            this.mcbShowVersionsOnHover.AutoSize = true;
+            this.mcbShowVersionsOnHover.Depth = 0;
+            this.mcbShowVersionsOnHover.Location = new System.Drawing.Point(328, 192);
+            this.mcbShowVersionsOnHover.Margin = new System.Windows.Forms.Padding(0);
+            this.mcbShowVersionsOnHover.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mcbShowVersionsOnHover.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mcbShowVersionsOnHover.Name = "mcbShowVersionsOnHover";
+            this.mcbShowVersionsOnHover.ReadOnly = false;
+            this.mcbShowVersionsOnHover.Ripple = true;
+            this.mcbShowVersionsOnHover.Size = new System.Drawing.Size(35, 37);
+            this.mcbShowVersionsOnHover.TabIndex = 21;
+            this.mcbShowVersionsOnHover.UseVisualStyleBackColor = true;
+            this.mcbShowVersionsOnHover.CheckedChanged += new System.EventHandler(this.mcbShowVersionsOnHover_CheckedChanged);
+            // 
+            // mcbSaveImagesToClips
+            // 
+            this.mcbSaveImagesToClips.AutoSize = true;
+            this.mcbSaveImagesToClips.Depth = 0;
+            this.mcbSaveImagesToClips.Location = new System.Drawing.Point(328, 156);
+            this.mcbSaveImagesToClips.Margin = new System.Windows.Forms.Padding(0);
+            this.mcbSaveImagesToClips.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.mcbSaveImagesToClips.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mcbSaveImagesToClips.Name = "mcbSaveImagesToClips";
+            this.mcbSaveImagesToClips.ReadOnly = false;
+            this.mcbSaveImagesToClips.Ripple = true;
+            this.mcbSaveImagesToClips.Size = new System.Drawing.Size(35, 37);
+            this.mcbSaveImagesToClips.TabIndex = 20;
+            this.mcbSaveImagesToClips.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -295,16 +351,6 @@
             this.label3.Size = new System.Drawing.Size(254, 18);
             this.label3.TabIndex = 19;
             this.label3.Text = "Show Template Text On Hover";
-            // 
-            // rbShowVersionsOnHover
-            // 
-            this.rbShowVersionsOnHover.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbShowVersionsOnHover.Location = new System.Drawing.Point(312, 199);
-            this.rbShowVersionsOnHover.Name = "rbShowVersionsOnHover";
-            this.rbShowVersionsOnHover.Size = new System.Drawing.Size(18, 23);
-            this.rbShowVersionsOnHover.TabIndex = 18;
-            this.rbShowVersionsOnHover.TabStop = true;
-            this.rbShowVersionsOnHover.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -325,6 +371,7 @@
             this.btnPositionClip.TabIndex = 16;
             this.btnPositionClip.Text = "Position";
             this.btnPositionClip.UseVisualStyleBackColor = true;
+            this.btnPositionClip.Click += new System.EventHandler(this.btnPositionClip_Click);
             // 
             // lblClipboardPopupPosition
             // 
@@ -345,16 +392,7 @@
             this.btnPositionTemp.TabIndex = 14;
             this.btnPositionTemp.Text = "Position";
             this.btnPositionTemp.UseVisualStyleBackColor = true;
-            // 
-            // rbSaveImagesToClips
-            // 
-            this.rbSaveImagesToClips.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rbSaveImagesToClips.Location = new System.Drawing.Point(312, 163);
-            this.rbSaveImagesToClips.Name = "rbSaveImagesToClips";
-            this.rbSaveImagesToClips.Size = new System.Drawing.Size(18, 23);
-            this.rbSaveImagesToClips.TabIndex = 13;
-            this.rbSaveImagesToClips.TabStop = true;
-            this.rbSaveImagesToClips.UseVisualStyleBackColor = true;
+            this.btnPositionTemp.Click += new System.EventHandler(this.btnPositionTemp_Click);
             // 
             // label1
             // 
@@ -403,6 +441,26 @@
             this.panel1.Size = new System.Drawing.Size(166, 20);
             this.panel1.TabIndex = 13;
             // 
+            // lblTemplatesPosition
+            // 
+            this.lblTemplatesPosition.AutoSize = true;
+            this.lblTemplatesPosition.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTemplatesPosition.Location = new System.Drawing.Point(382, 62);
+            this.lblTemplatesPosition.Name = "lblTemplatesPosition";
+            this.lblTemplatesPosition.Size = new System.Drawing.Size(74, 18);
+            this.lblTemplatesPosition.TabIndex = 23;
+            this.lblTemplatesPosition.Text = "Top Left";
+            // 
+            // lblClipboardPosition
+            // 
+            this.lblClipboardPosition.AutoSize = true;
+            this.lblClipboardPosition.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblClipboardPosition.Location = new System.Drawing.Point(382, 102);
+            this.lblClipboardPosition.Name = "lblClipboardPosition";
+            this.lblClipboardPosition.Size = new System.Drawing.Size(74, 18);
+            this.lblClipboardPosition.TabIndex = 24;
+            this.lblClipboardPosition.Text = "Top Left";
+            // 
             // SettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,9 +493,7 @@
         private System.Windows.Forms.Panel pnlGeneral;
         private System.Windows.Forms.Label lblGeneral;
         private System.Windows.Forms.Label lblStartOnSystem;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label lblStartWithEditor;
-        private System.Windows.Forms.RadioButton rbStartWithSystem;
         private System.Windows.Forms.Panel pnlHotkeys;
         private System.Windows.Forms.Label lblOpenClipboardPopup;
         private System.Windows.Forms.Label lblHotkeys;
@@ -447,7 +503,6 @@
         private System.Windows.Forms.TextBox tbHotkeyTemplates;
         private System.Windows.Forms.Label lblOpenEditor;
         private System.Windows.Forms.Panel pnlPopups;
-        private System.Windows.Forms.RadioButton rbSaveImagesToClips;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblPopupWindows;
         private System.Windows.Forms.Label lblTemplatesPopupPosition;
@@ -455,13 +510,18 @@
         private System.Windows.Forms.Button btnPositionTemp;
         private System.Windows.Forms.Label lblClipboardPopupPosition;
         private System.Windows.Forms.Button btnPositionClip;
-        private System.Windows.Forms.RadioButton rbShowVersionsOnHover;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton rbShowTemplateTextOnHover;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnEditOpenMainEditor;
         private System.Windows.Forms.Button btnEditOpenClipboardPopup;
         private System.Windows.Forms.Button btnEditOpenTemplatesPopup;
         private System.Windows.Forms.Panel panel1;
+        private MaterialSkin.Controls.MaterialCheckbox mcbOpenEditorOnStart;
+        private MaterialSkin.Controls.MaterialCheckbox mcbStartWithSystem;
+        private MaterialSkin.Controls.MaterialCheckbox mcbShowTemplateTextOnHover;
+        private MaterialSkin.Controls.MaterialCheckbox mcbShowVersionsOnHover;
+        private MaterialSkin.Controls.MaterialCheckbox mcbSaveImagesToClips;
+        private System.Windows.Forms.Label lblClipboardPosition;
+        private System.Windows.Forms.Label lblTemplatesPosition;
     }
 }

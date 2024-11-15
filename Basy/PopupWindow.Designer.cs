@@ -51,7 +51,7 @@
             this.btnEditorOpen.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnEditorOpen.Location = new System.Drawing.Point(203, 5);
             this.btnEditorOpen.Name = "btnEditorOpen";
-            this.btnEditorOpen.Size = new System.Drawing.Size(98, 23);
+            this.btnEditorOpen.Size = new System.Drawing.Size(98, 27);
             this.btnEditorOpen.TabIndex = 1;
             this.btnEditorOpen.Text = "Open Editor";
             this.btnEditorOpen.UseVisualStyleBackColor = false;

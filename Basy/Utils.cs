@@ -1,5 +1,6 @@
 ﻿using Basy.Models;
 using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -995,6 +996,27 @@ namespace Basy
                 using (var deleteCommand = new SqliteCommand(deleteOldLogsQuery, connection))
                 {
                     deleteCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void ChangeAppShouldStartWithSystem(bool shouldStart)
+        {
+            Properties.Settings.Default.StartWithSystem = shouldStart;
+            Properties.Settings.Default.Save();
+
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (key != null)
+            {
+                if (shouldStart)
+                {
+                    key.SetValue("Basy", System.Windows.Forms.Application.ExecutablePath);
+                    MessageBox.Show("Application startup settings changed to start with system!");
+                }
+                else
+                {
+                    key.DeleteValue("Basy", false);
+                    MessageBox.Show("Application removed from startup!");
                 }
             }
         }

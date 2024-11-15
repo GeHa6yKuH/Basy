@@ -204,6 +204,12 @@
     <Compile Include="ParametersTemplateWindow.Designer.cs">
       <DependentUpon>ParametersTemplateWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="PopupPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopupPosition.Designer.cs">
+      <DependentUpon>PopupPosition.cs</DependentUpon>
+    </Compile>
     <Compile Include="PopupWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +225,12 @@
     </Compile>
     <Compile Include="SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShortCutWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShortCutWindow.Designer.cs">
+      <DependentUpon>ShortCutWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="TagEditor.cs">
       <SubType>Form</SubType>
@@ -299,6 +311,9 @@
     <EmbeddedResource Include="ParametersTemplateWindow.resx">
       <DependentUpon>ParametersTemplateWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PopupPosition.resx">
+      <DependentUpon>PopupPosition.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PopupWindow.resx">
       <DependentUpon>PopupWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +329,9 @@
     </Compile>
     <EmbeddedResource Include="SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShortCutWindow.resx">
+      <DependentUpon>ShortCutWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TagEditor.resx">
       <DependentUpon>TagEditor.cs</DependentUpon>

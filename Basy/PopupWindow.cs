@@ -9,8 +9,8 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+/*using System.Windows.Controls;*/
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Basy
 {
@@ -22,6 +22,9 @@ namespace Basy
         private Timer _hoverTimer;
         private Graphics _graphicsForCircles;
         private bool _isExtended = false;
+        private ToolTip _toolTipForText = new ToolTip();
+        private bool _showTemplatesText;
+        private bool _showVersionsOnHover;
 
         public PopupWindow()
         {
@@ -30,16 +33,27 @@ namespace Basy
             populateListWithTemplates();
             BringToFront();
 
-            _versionMenuPopup = new ContextMenuStrip();
-            _versionMenuPopup.MouseLeave += (s, e) => _versionMenuPopup.Hide();
+            _showTemplatesText = Properties.Settings.Default.ShowTemplateTextOnHover;
+            _showVersionsOnHover = Properties.Settings.Default.ShowVersionsOnHover;
 
-            _hoverTimer = new Timer();
-            _hoverTimer.Interval = 100;
-            _hoverTimer.Tick += ShowVersionsOnHover;
+            if (_showVersionsOnHover)
+            {
+                _versionMenuPopup = new ContextMenuStrip();
+                _versionMenuPopup.MouseLeave += (s, e) => _versionMenuPopup.Hide();
 
-            lbTemplates.MouseEnter += (s, e) => _hoverTimer.Start();
-            lbTemplates.MouseLeave += HideVersions;
-            MouseLeave += HideVersions;
+                _hoverTimer = new Timer();
+                _hoverTimer.Interval = 200;
+                _hoverTimer.Tick += ShowVersionsOnHover;
+
+                lbTemplates.MouseEnter += (s, e) => _hoverTimer.Start();
+                lbTemplates.MouseLeave += HideVersions;
+                MouseLeave += HideVersions;
+            }
+
+            if (_showTemplatesText)
+            {
+                lbTemplates.MouseMove += ShowToolBox;
+            }
 
             TopMost = true;
 
@@ -47,6 +61,37 @@ namespace Basy
 
             lbTemplates.DrawMode = DrawMode.OwnerDrawFixed;
             lbTemplates.DrawItem += DrawColorCircles;
+        }
+
+        private void ShowToolBox(object sender, MouseEventArgs e)
+        {
+            if (lbTemplates != null)
+            {
+                int index = lbTemplates.IndexFromPoint(e.Location);
+
+                if (index >= 0 && index < lbTemplates.Items.Count)
+                {
+                    Template template = (Template)lbTemplates.Items[index];
+
+                    if (Utils.GetAllVersionsByTemplateId(template.Id).Count == 1)
+                    {
+                        string itemText = template.Text;
+
+                        if (_toolTipForText.GetToolTip(lbTemplates) != itemText)
+                        {
+                            _toolTipForText.SetToolTip(lbTemplates, itemText);
+                        }
+                    }
+                    else
+                    {
+                        _toolTipForText.SetToolTip(lbTemplates, "");
+                    }
+                }
+                else
+                {
+                    _toolTipForText.SetToolTip(lbTemplates, "");
+                }
+            }
         }
 
         private void DrawColorCircles(object sender, DrawItemEventArgs e)
@@ -154,12 +199,32 @@ namespace Basy
                     if (_versionMenuPopup.Items.Count > 1)
                     {
                         Point versionsWindowSpawnPoint = cursorPosition + Constants.versionsPopupoffset;
+                        if (_showTemplatesText)
+                        {
+                            foreach (ToolStripItem item in _versionMenuPopup.Items)
+                            {
+                                item.MouseEnter += ShowVersionText;
+                            }
+                        }
                         _versionMenuPopup.Show(lbTemplates, versionsWindowSpawnPoint);
+                    }
+                    else
+                    {
+                        _versionMenuPopup.Hide();
                     }
                 }
             }
         }
 
+        private void ShowVersionText(object sender, EventArgs e)
+        {
+            if (sender is ToolStripMenuItem menuItem)
+            {
+                TVersion version = (TVersion)menuItem.Tag;
+                string itemText = version.Text;
+                _toolTipForText.SetToolTip(_versionMenuPopup, itemText);
+            }
+        }
 
         private void VersionClick(object sender, EventArgs e)
         {
