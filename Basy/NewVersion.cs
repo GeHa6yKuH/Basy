@@ -26,40 +26,6 @@ namespace Basy
             _versionsEditor = versionsEditor;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
-                {
-                    MessageBox.Show("Please fill version fields!");
-                    return;
-                }
-                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-                {
-                    connection.Open();
-
-                    int newVersionId = AddVersionAndUpdateTemplate(connection);
-
-                    List<string> parametersNames = Utils.GetAllParametersNamesFromTextBox(tbText.Text);
-
-                    if (parametersNames.Count >= 1)
-                    {
-                        Utils.AddParametersByVersionId(newVersionId, parametersNames, true);
-                    }
-                }
-                if (_versionsEditor != null)
-                {
-                    _versionsEditor.PopulateListWithVersions();
-                }
-                Utils.LogToHistory(Operations.Create, $"Version {tbName.Text} has been created");
-                Close();
-            } catch(Exception ex)
-            {
-                MessageBox.Show("Error occured: " + ex.Message);
-            }
-        }
-
         private int AddVersionAndUpdateTemplate(SqliteConnection connection)
         {
             int newVersionId = -1;
@@ -97,6 +63,41 @@ namespace Basy
                 Close();
             }
             return newVersionId >= 0 ? newVersionId : -1;
+        }
+
+        private void mtbAddtag_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
+                {
+                    MessageBox.Show("Please fill version fields!");
+                    return;
+                }
+                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+                {
+                    connection.Open();
+
+                    int newVersionId = AddVersionAndUpdateTemplate(connection);
+
+                    List<string> parametersNames = Utils.GetAllParametersNamesFromTextBox(tbText.Text);
+
+                    if (parametersNames.Count >= 1)
+                    {
+                        Utils.AddParametersByVersionId(newVersionId, parametersNames, true);
+                    }
+                }
+                if (_versionsEditor != null)
+                {
+                    _versionsEditor.PopulateListWithVersions();
+                }
+                Utils.LogToHistory(Operations.Create, $"Version {tbName.Text} has been created");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occured: " + ex.Message);
+            }
         }
     }
 }

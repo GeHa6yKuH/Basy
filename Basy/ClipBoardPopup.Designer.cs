@@ -1,6 +1,6 @@
 ﻿namespace Basy
 {
-    partial class ChooseVersion
+    partial class ClipBoardPopup
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblPleaseChoose = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClipBoardPopup));
+            this.lbClips = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // lblPleaseChoose
+            // lbClips
             // 
-            this.lblPleaseChoose.AutoSize = true;
-            this.lblPleaseChoose.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPleaseChoose.Location = new System.Drawing.Point(110, 36);
-            this.lblPleaseChoose.Name = "lblPleaseChoose";
-            this.lblPleaseChoose.Size = new System.Drawing.Size(251, 25);
-            this.lblPleaseChoose.TabIndex = 0;
-            this.lblPleaseChoose.Text = "Please Choose Version";
+            this.lbClips.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lbClips.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbClips.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.lbClips.FormattingEnabled = true;
+            this.lbClips.ItemHeight = 23;
+            this.lbClips.Location = new System.Drawing.Point(0, 0);
+            this.lbClips.Name = "lbClips";
+            this.lbClips.Size = new System.Drawing.Size(310, 326);
+            this.lbClips.TabIndex = 1;
             // 
-            // ChooseVersion
+            // ClipBoardPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(478, 176);
-            this.Controls.Add(this.lblPleaseChoose);
+            this.ClientSize = new System.Drawing.Size(310, 326);
+            this.Controls.Add(this.lbClips);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "ChooseVersion";
-            this.Text = "ChooseVersion";
-            this.Load += new System.EventHandler(this.ChooseVersion_Load);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "ClipBoardPopup";
+            this.Text = "ClipBoardPopup";
+            this.Load += new System.EventHandler(this.ClipBoardPopup_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lblPleaseChoose;
+        private System.Windows.Forms.ListBox lbClips;
     }
 }

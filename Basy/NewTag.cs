@@ -44,7 +44,7 @@ namespace Basy
             }
         }
 
-        private void btnAddNewTag_Click(object sender, EventArgs e)
+        private void materialButton1_Click(object sender, EventArgs e)
         {
             try
             {

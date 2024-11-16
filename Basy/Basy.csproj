@@ -130,6 +130,7 @@
     <Compile Include="BaseBasyForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="BasyClipboard.cs" />
     <Compile Include="ChooseFromExistingTags.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +149,12 @@
     <Compile Include="ChooseVersion.Designer.cs">
       <DependentUpon>ChooseVersion.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClipBoardPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClipBoardPopup.Designer.cs">
+      <DependentUpon>ClipBoardPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="HistoryControl.cs">
       <SubType>UserControl</SubType>
@@ -161,6 +168,12 @@
     <Compile Include="HistoryLogPreview.Designer.cs">
       <DependentUpon>HistoryLogPreview.cs</DependentUpon>
     </Compile>
+    <Compile Include="HowToControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HowToControl.Designer.cs">
+      <DependentUpon>HowToControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Maineditorwindow.cs">
       <SubType>Form</SubType>
@@ -168,6 +181,7 @@
     <Compile Include="Maineditorwindow.Designer.cs">
       <DependentUpon>Maineditorwindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BasyClip.cs" />
     <Compile Include="Models\HistoryLog.cs" />
     <Compile Include="Models\Paremater.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -287,17 +301,26 @@
     <EmbeddedResource Include="ChooseVersion.resx">
       <DependentUpon>ChooseVersion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ClipBoardPopup.resx">
+      <DependentUpon>ClipBoardPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HistoryControl.resx">
       <DependentUpon>HistoryControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HistoryLogPreview.resx">
       <DependentUpon>HistoryLogPreview.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HowToControl.resx">
+      <DependentUpon>HowToControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Maineditorwindow.resx">
       <DependentUpon>Maineditorwindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewTag.resx">
       <DependentUpon>NewTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewTemplate.ff-Adlm-GN.resx">
+      <DependentUpon>NewTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewTemplate.resx">
       <DependentUpon>NewTemplate.cs</DependentUpon>

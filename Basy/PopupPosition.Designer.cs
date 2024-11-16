@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PopupPosition));
             this.btnLeftTop = new System.Windows.Forms.Button();
             this.btnLeftBottom = new System.Windows.Forms.Button();
             this.btnRightTop = new System.Windows.Forms.Button();
@@ -94,14 +95,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(487, 256);
             this.Controls.Add(this.btnCoursorPosition);
             this.Controls.Add(this.btnRightBottom);
             this.Controls.Add(this.btnRightTop);
             this.Controls.Add(this.btnLeftBottom);
             this.Controls.Add(this.btnLeftTop);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PopupPosition";
-            this.Text = "PopupPosition";
+            this.Text = "Position";
             this.ResumeLayout(false);
 
         }

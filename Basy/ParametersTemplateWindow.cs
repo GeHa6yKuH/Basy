@@ -76,7 +76,7 @@ namespace Basy
             }
         }
 
-        private void btnCopy_Click(object sender, EventArgs e)
+        private void mtbCopy_Click(object sender, EventArgs e)
         {
             string finalText = _templateText;
 

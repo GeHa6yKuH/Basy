@@ -496,7 +496,6 @@ namespace Basy
 
         public static async Task PasteTextAsync(string template)
         {
-            string originalClipboardText = Clipboard.GetText();
 
             Clipboard.SetText(template);
 

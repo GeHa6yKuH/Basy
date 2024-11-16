@@ -32,48 +32,6 @@ namespace Basy
             tbName.Text = _versionToModify.Name;
         }
 
-        private void btnModify_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
-                {
-                    MessageBox.Show("Version fields can not be empty!");
-                    return;
-                }
-                if (tbName.Text != _versionToModify.Name || tbText.Text != _versionToModify.Text)
-                {
-                    using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-                    {
-                        connection.Open();
-
-                        bool nameModified = tbName.Text != _versionToModify.Name;
-                        string toLog = nameModified ?
-                            $"Name of version {_versionToModify.Name} has been changed to {tbName.Text}" :
-                            $"Text of version {_versionToModify.Name} has been changed from {_versionToModify.Text} to {tbText.Text}";
-
-                        UpdateVersion(connection);
-
-                        UpdateParameters();
-
-                        Utils.LogToHistory(Operations.Modify, toLog);
-                    }
-                    if (_versionsEditor != null)
-                    {
-                        _versionsEditor.PopulateListWithVersions();
-                    }
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Please enter valid values!");
-                }
-            } catch (Exception ex)
-            {
-                MessageBox.Show("Error:" + ex.Message);
-            }
-        }
-
         private void UpdateParameters()
         {
             List<Parameter> currentParameters = Utils.GetAllParametersByVersionId(_versionToModify.Id);
@@ -143,6 +101,49 @@ namespace Basy
 
             ParameterList parameterList = new ParameterList(parameters);
             parameterList.Show();
+        }
+
+        private void mtbModify_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
+                {
+                    MessageBox.Show("Version fields can not be empty!");
+                    return;
+                }
+                if (tbName.Text != _versionToModify.Name || tbText.Text != _versionToModify.Text)
+                {
+                    using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+                    {
+                        connection.Open();
+
+                        bool nameModified = tbName.Text != _versionToModify.Name;
+                        string toLog = nameModified ?
+                            $"Name of version {_versionToModify.Name} has been changed to {tbName.Text}" :
+                            $"Text of version {_versionToModify.Name} has been changed from {_versionToModify.Text} to {tbText.Text}";
+
+                        UpdateVersion(connection);
+
+                        UpdateParameters();
+
+                        Utils.LogToHistory(Operations.Modify, toLog);
+                    }
+                    if (_versionsEditor != null)
+                    {
+                        _versionsEditor.PopulateListWithVersions();
+                    }
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Please enter valid values!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error:" + ex.Message);
+            }
         }
     }
 }

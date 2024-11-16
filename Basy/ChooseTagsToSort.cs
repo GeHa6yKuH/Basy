@@ -58,7 +58,7 @@ namespace Basy
             }
         }
 
-        private void btnSort_Click(object sender, EventArgs e)
+        private void mtbSort_Click(object sender, EventArgs e)
         {
             if (lbTags.SelectedItems != null && lbTags.SelectedItems.Count > 0)
             {

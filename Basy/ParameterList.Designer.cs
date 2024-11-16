@@ -37,21 +37,21 @@
             // lblParameters
             // 
             this.lblParameters.AutoSize = true;
-            this.lblParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblParameters.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblParameters.Location = new System.Drawing.Point(12, 15);
             this.lblParameters.Name = "lblParameters";
-            this.lblParameters.Size = new System.Drawing.Size(105, 24);
+            this.lblParameters.Size = new System.Drawing.Size(116, 23);
             this.lblParameters.TabIndex = 16;
             this.lblParameters.Text = "Parameters";
             // 
             // lbParameters
             // 
-            this.lbParameters.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbParameters.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbParameters.FormattingEnabled = true;
-            this.lbParameters.ItemHeight = 24;
+            this.lbParameters.ItemHeight = 23;
             this.lbParameters.Location = new System.Drawing.Point(12, 59);
             this.lbParameters.Name = "lbParameters";
-            this.lbParameters.Size = new System.Drawing.Size(330, 316);
+            this.lbParameters.Size = new System.Drawing.Size(330, 326);
             this.lbParameters.TabIndex = 15;
             // 
             // lblInstructions
@@ -67,12 +67,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(354, 505);
             this.Controls.Add(this.lblInstructions);
             this.Controls.Add(this.lblParameters);
             this.Controls.Add(this.lbParameters);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ParameterList";
-            this.Text = "ParameterList";
+            this.Text = "Parameters";
             this.Load += new System.EventHandler(this.ParameterList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

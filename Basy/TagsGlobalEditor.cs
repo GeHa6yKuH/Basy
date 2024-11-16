@@ -55,13 +55,13 @@ namespace Basy
             }
         }
 
-        private void btnAddNewTag_Click(object sender, EventArgs e)
+        private void mtbAddNewTag_Click(object sender, EventArgs e)
         {
             NewTag newTag = new NewTag(this);
             newTag.Show();
         }
 
-        private void btnDeleteSelected_Click(object sender, EventArgs e)
+        private void materialButton1_Click(object sender, EventArgs e)
         {
             if (lbTags.SelectedItem != null)
             {

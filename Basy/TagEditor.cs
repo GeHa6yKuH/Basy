@@ -31,7 +31,19 @@ namespace Basy
             pnlColorPreview.BackColor = _tag.Color;
         }
 
-        private void btnModify_Click(object sender, EventArgs e)
+        private void btnPickAColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog colorDialog = new ColorDialog())
+            {
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    _color = colorDialog.Color;
+                    pnlColorPreview.BackColor = _color;
+                }
+            }
+        }
+
+        private void mtbModify_Click(object sender, EventArgs e)
         {
             if (tbName.Text != _tag.Name || _color != _tag.Color)
             {
@@ -52,18 +64,6 @@ namespace Basy
             else
             {
                 Close();
-            }
-        }
-
-        private void btnPickAColor_Click(object sender, EventArgs e)
-        {
-            using (ColorDialog colorDialog = new ColorDialog())
-            {
-                if (colorDialog.ShowDialog() == DialogResult.OK)
-                {
-                    _color = colorDialog.Color;
-                    pnlColorPreview.BackColor = _color;
-                }
             }
         }
     }

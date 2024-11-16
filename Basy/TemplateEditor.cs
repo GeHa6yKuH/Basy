@@ -49,71 +49,12 @@ namespace Basy
             tagsEditor.Show();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_toModifyTemplate != null)
-                {
-                    DialogResult userConfirms = MessageBox.Show($"Are you sure you want to delete {_toModifyTemplate.Name} Template?", "Delete", MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning);
-
-                    if (userConfirms == DialogResult.Yes)
-                    {
-                        Utils.deleteTemplateById(_toModifyTemplate.Id);
-                        Utils.LogToHistory(Operations.Delete, $"Template {_toModifyTemplate.Name}" +
-                            $" with text {_toModifyTemplate.Text} has been deleted!");
-                        _templatesControl.PopulateGrid();
-                        _templatesControl.SelectIndexInSortGrid(2);
-                        this.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
-        }
-
         private void btnParameters_Click(object sender, EventArgs e)
         {
             List<Parameter> parameters = Utils.GetAllParametersByVersionId(_toModifyTemplate.InitialVersionId);
 
             ParameterList parameterList = new ParameterList(parameters);
             parameterList.Show();
-        }
-
-        private void btnModify_Click(object sender, EventArgs e)
-        {
-            if(string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
-                {
-                MessageBox.Show("Template fields can not be empty!");
-                return;
-            }
-            if (tbName.Text != _toModifyTemplate.Name || tbText.Text != _toModifyTemplate.Text)
-            {
-                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-                {
-                    connection.Open();
-
-                    bool nameModified = tbName.Text != _toModifyTemplate.Name;
-                    string toLog = nameModified ?
-                        $"Name of template {_toModifyTemplate.Name} has been changed to {tbName.Text}" :
-                        $"Text of template {_toModifyTemplate.Name} has been changed from {_toModifyTemplate.Text} to {tbText.Text}";
-
-                    UpdateTemplateAndVersion(connection);
-
-                    UpdateParameters();
-
-                    Utils.LogToHistory(Operations.Modify, toLog);
-                }
-            }
-            if (_templatesControl != null)
-            {
-                _templatesControl.PopulateGrid();
-                _templatesControl.SelectIndexInSortGrid(2);
-            }
-            Close();
         }
 
         private void UpdateParameters()
@@ -179,6 +120,65 @@ namespace Basy
                     command.Parameters.AddWithValue("@text", tbText.Text);
                     command.ExecuteNonQuery();
                 }
+            }
+        }
+
+        private void mtbModify_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
+            {
+                MessageBox.Show("Template fields can not be empty!");
+                return;
+            }
+            if (tbName.Text != _toModifyTemplate.Name || tbText.Text != _toModifyTemplate.Text)
+            {
+                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+                {
+                    connection.Open();
+
+                    bool nameModified = tbName.Text != _toModifyTemplate.Name;
+                    string toLog = nameModified ?
+                        $"Name of template {_toModifyTemplate.Name} has been changed to {tbName.Text}" :
+                        $"Text of template {_toModifyTemplate.Name} has been changed from {_toModifyTemplate.Text} to {tbText.Text}";
+
+                    UpdateTemplateAndVersion(connection);
+
+                    UpdateParameters();
+
+                    Utils.LogToHistory(Operations.Modify, toLog);
+                }
+            }
+            if (_templatesControl != null)
+            {
+                _templatesControl.PopulateGrid();
+                _templatesControl.SelectIndexInSortGrid(2);
+            }
+            Close();
+        }
+
+        private void mtbDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_toModifyTemplate != null)
+                {
+                    DialogResult userConfirms = MessageBox.Show($"Are you sure you want to delete {_toModifyTemplate.Name} Template?", "Delete", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (userConfirms == DialogResult.Yes)
+                    {
+                        Utils.deleteTemplateById(_toModifyTemplate.Id);
+                        Utils.LogToHistory(Operations.Delete, $"Template {_toModifyTemplate.Name}" +
+                            $" with text {_toModifyTemplate.Text} has been deleted!");
+                        _templatesControl.PopulateGrid();
+                        _templatesControl.SelectIndexInSortGrid(2);
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
     }

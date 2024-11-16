@@ -28,39 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PopupWindow));
             this.lbTemplates = new System.Windows.Forms.ListBox();
-            this.btnEditorOpen = new System.Windows.Forms.Button();
             this.cbSortBox = new System.Windows.Forms.ComboBox();
+            this.mtbOpenEditor = new MaterialSkin.Controls.MaterialButton();
+            this.pnlUpper = new System.Windows.Forms.Panel();
+            this.pnlUpper.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbTemplates
             // 
             this.lbTemplates.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lbTemplates.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbTemplates.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbTemplates.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbTemplates.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lbTemplates.FormattingEnabled = true;
-            this.lbTemplates.ItemHeight = 18;
-            this.lbTemplates.Location = new System.Drawing.Point(1, 34);
+            this.lbTemplates.ItemHeight = 23;
+            this.lbTemplates.Location = new System.Drawing.Point(0, 65);
             this.lbTemplates.Name = "lbTemplates";
-            this.lbTemplates.Size = new System.Drawing.Size(311, 436);
+            this.lbTemplates.Size = new System.Drawing.Size(310, 418);
             this.lbTemplates.TabIndex = 0;
-            // 
-            // btnEditorOpen
-            // 
-            this.btnEditorOpen.BackColor = System.Drawing.Color.PowderBlue;
-            this.btnEditorOpen.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEditorOpen.Location = new System.Drawing.Point(203, 5);
-            this.btnEditorOpen.Name = "btnEditorOpen";
-            this.btnEditorOpen.Size = new System.Drawing.Size(98, 27);
-            this.btnEditorOpen.TabIndex = 1;
-            this.btnEditorOpen.Text = "Open Editor";
-            this.btnEditorOpen.UseVisualStyleBackColor = false;
-            this.btnEditorOpen.Click += new System.EventHandler(this.btnEditorOpen_Click);
             // 
             // cbSortBox
             // 
             this.cbSortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbSortBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSortBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cbSortBox.FormattingEnabled = true;
             this.cbSortBox.Items.AddRange(new object[] {
             "Name (A - Z)",
@@ -68,26 +60,59 @@
             "Creation date (new to old)",
             "Tags (more to less tags)",
             "Tags (choose tags)"});
-            this.cbSortBox.Location = new System.Drawing.Point(5, 5);
+            this.cbSortBox.Location = new System.Drawing.Point(9, 18);
             this.cbSortBox.Margin = new System.Windows.Forms.Padding(0);
             this.cbSortBox.Name = "cbSortBox";
-            this.cbSortBox.Size = new System.Drawing.Size(114, 23);
+            this.cbSortBox.Size = new System.Drawing.Size(148, 28);
             this.cbSortBox.TabIndex = 13;
             this.cbSortBox.SelectedIndexChanged += new System.EventHandler(this.cbSortGrid_SelectedIndexChanged);
+            // 
+            // mtbOpenEditor
+            // 
+            this.mtbOpenEditor.AutoSize = false;
+            this.mtbOpenEditor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mtbOpenEditor.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mtbOpenEditor.Depth = 0;
+            this.mtbOpenEditor.HighEmphasis = true;
+            this.mtbOpenEditor.Icon = null;
+            this.mtbOpenEditor.Location = new System.Drawing.Point(174, 15);
+            this.mtbOpenEditor.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mtbOpenEditor.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mtbOpenEditor.Name = "mtbOpenEditor";
+            this.mtbOpenEditor.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mtbOpenEditor.Size = new System.Drawing.Size(123, 33);
+            this.mtbOpenEditor.TabIndex = 14;
+            this.mtbOpenEditor.Text = "Open Editor";
+            this.mtbOpenEditor.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mtbOpenEditor.UseAccentColor = false;
+            this.mtbOpenEditor.UseVisualStyleBackColor = true;
+            this.mtbOpenEditor.Click += new System.EventHandler(this.mtbOpenEditor_Click);
+            // 
+            // pnlUpper
+            // 
+            this.pnlUpper.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.pnlUpper.Controls.Add(this.cbSortBox);
+            this.pnlUpper.Controls.Add(this.mtbOpenEditor);
+            this.pnlUpper.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlUpper.Location = new System.Drawing.Point(0, 0);
+            this.pnlUpper.Name = "pnlUpper";
+            this.pnlUpper.Size = new System.Drawing.Size(310, 65);
+            this.pnlUpper.TabIndex = 15;
             // 
             // PopupWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(313, 472);
-            this.Controls.Add(this.cbSortBox);
-            this.Controls.Add(this.btnEditorOpen);
+            this.ClientSize = new System.Drawing.Size(310, 483);
+            this.Controls.Add(this.pnlUpper);
             this.Controls.Add(this.lbTemplates);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PopupWindow";
             this.Text = "PopupWindow";
             this.Load += new System.EventHandler(this.PopupWindow_Load);
+            this.pnlUpper.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -95,7 +120,8 @@
         #endregion
 
         private System.Windows.Forms.ListBox lbTemplates;
-        private System.Windows.Forms.Button btnEditorOpen;
         private System.Windows.Forms.ComboBox cbSortBox;
+        private MaterialSkin.Controls.MaterialButton mtbOpenEditor;
+        private System.Windows.Forms.Panel pnlUpper;
     }
 }

@@ -47,6 +47,7 @@ namespace Basy
                         FillUserControl(new HistoryControl());
                         break;
                     case "How-To":
+                        FillUserControl(new HowToControl());
                         break;
                 }
 
@@ -101,6 +102,11 @@ namespace Basy
         {
             IconButton btn = (IconButton)sender;
             ActivateLeftBtn(btn, Color.LightBlue);
+        }
+
+        private void ibShare_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/GeHa6yKuH/Basy");
         }
     }
 }

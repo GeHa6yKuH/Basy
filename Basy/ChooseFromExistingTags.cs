@@ -52,11 +52,6 @@ namespace Basy
             }
         }
 
-        private void btnAddTag_Click(object sender, EventArgs e)
-        {
-            AssignSelectedTagToTemplate();
-        }
-
         private void AssignSelectedTagToTemplate()
         {
             if (lbTags.SelectedItem != null)
@@ -81,6 +76,11 @@ namespace Basy
             {
                 MessageBox.Show("Please select an Item!");
             }
+        }
+
+        private void mtbAddtag_Click(object sender, EventArgs e)
+        {
+            AssignSelectedTagToTemplate();
         }
     }
 }

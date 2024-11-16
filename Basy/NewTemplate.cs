@@ -28,40 +28,6 @@ namespace Basy
             _templatesControl = templatesControl;
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
-                {
-                    MessageBox.Show("Please fill template fields!");
-                    return;
-                }
-                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-                {
-                    connection.Open();
-
-                    int newTemplateInitialVersionId = AddTemplateAndInitialVersion(connection);
-
-                    List<string> parametersNames = Utils.GetAllParametersNamesFromTextBox(tbText.Text);
-
-                    if (parametersNames.Count >= 1)
-                    {
-                        Utils.AddParametersByVersionId(newTemplateInitialVersionId, parametersNames, true);
-                    }
-                }
-                if (_templatesControl != null)
-                {
-                    _templatesControl.PopulateGrid();
-                }
-                Utils.LogToHistory("Create", $"template {tbName.Text} created!");
-                Close();
-            } catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
         private int AddTemplateAndInitialVersion(SqliteConnection connection)
         {
             int newInitialVersionId = -1;
@@ -113,6 +79,41 @@ namespace Basy
         private void NewTemplate_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void mtbAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbName.Text) || string.IsNullOrEmpty(tbText.Text))
+                {
+                    MessageBox.Show("Please fill template fields!");
+                    return;
+                }
+                using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+                {
+                    connection.Open();
+
+                    int newTemplateInitialVersionId = AddTemplateAndInitialVersion(connection);
+
+                    List<string> parametersNames = Utils.GetAllParametersNamesFromTextBox(tbText.Text);
+
+                    if (parametersNames.Count >= 1)
+                    {
+                        Utils.AddParametersByVersionId(newTemplateInitialVersionId, parametersNames, true);
+                    }
+                }
+                if (_templatesControl != null)
+                {
+                    _templatesControl.PopulateGrid();
+                }
+                Utils.LogToHistory("Create", $"template {tbName.Text} created!");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
     }
 }

@@ -43,18 +43,7 @@ namespace Basy
             }
         }
 
-        private void btnAddExistingTag_Click(object sender, EventArgs e)
-        {
-            if (_tags.Count > 3)
-            {
-                MessageBox.Show("You can not add more then 4 Tags to one Template!");
-                return;
-            }
-            ChooseFromExistingTags chooseFromExistingTags = new ChooseFromExistingTags(_templateToEditTags, this);
-            chooseFromExistingTags.Show();
-        }
-
-        private void btnAddNewTag_Click(object sender, EventArgs e)
+        private void mtbAddNewTag_Click(object sender, EventArgs e)
         {
             if (_tags.Count > 3)
             {
@@ -63,6 +52,17 @@ namespace Basy
             }
             NewTag newTag = new NewTag(this, _templateToEditTags);
             newTag.Show();
+        }
+
+        private void mtbAddExistingTag_Click(object sender, EventArgs e)
+        {
+            if (_tags.Count > 3)
+            {
+                MessageBox.Show("You can not add more then 4 Tags to one Template!");
+                return;
+            }
+            ChooseFromExistingTags chooseFromExistingTags = new ChooseFromExistingTags(_templateToEditTags, this);
+            chooseFromExistingTags.Show();
         }
     }
 }

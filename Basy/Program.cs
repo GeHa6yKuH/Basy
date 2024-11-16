@@ -28,6 +28,7 @@ namespace Basy
 
             string solutionPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
             string iconPath = Path.Combine(solutionPath, "UI", "Logo", "logo_for_icon.ico");
+
             notifyIcon = new NotifyIcon
             {
                 Icon = new Icon(iconPath),
@@ -35,11 +36,15 @@ namespace Basy
                 Text = "Basy App",
             };
 
+            notifyIcon.Click += OpenEditor;
             notifyIcon.Visible = true;
 
             globalHook = Hook.GlobalEvents();
             globalHook.KeyDown += GlobalHook_KeyDown;
             globalHook.KeyUp += GlobalHook_KeyUp;
+
+            BasyClipboard.StartClipboardMonitoring();
+
             Application.ApplicationExit += Application_ApplicationExit;
 
             Application.ThreadException += (sender, args) => HandleException(args.Exception);
@@ -55,6 +60,15 @@ namespace Basy
             }
 
             Application.Run(baseBasyForm);
+        }
+
+        private static void OpenEditor(object sender, EventArgs e)
+        {
+            if (!Utils.FormIsOpenByName("Maineditorwindow"))
+            {
+                Maineditorwindow maineditorwindow = new Maineditorwindow();
+                maineditorwindow.Show();
+            }
         }
 
         private static void HandleException(Exception exception)
@@ -73,6 +87,11 @@ namespace Basy
             if (string.Join(" + ", pressedKeys) == Properties.Settings.Default.Hotkey)
             {
                 ShowTemplatePopup();
+            }
+
+            if (string.Join(" + ", pressedKeys) == Properties.Settings.Default.HotkeyClipboard)
+            {
+                ShowClipboardPopup();
             }
 
             if (e.Control && e.Shift && e.KeyCode == Keys.Y)
@@ -94,15 +113,40 @@ namespace Basy
 
         private static void GlobalHook_KeyUp(object sender, KeyEventArgs e)
         {
-            if (!pressedKeys.Contains(e.KeyCode))
-            {
-                return;
-            }
             if (e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey) pressedKeys.Remove(Keys.ControlKey);
             else if (e.KeyCode == Keys.LShiftKey || e.KeyCode == Keys.RShiftKey) pressedKeys.Remove(Keys.ShiftKey);
-            else if (e.KeyCode == Keys.LMenu || e.KeyCode == Keys.RMenu) pressedKeys.Remove(Keys.Alt);
             else if (e.KeyCode == Keys.LMenu || e.KeyCode == Keys.RMenu) pressedKeys.Remove(Keys.Menu);
-            else pressedKeys.Remove(e.KeyCode);
+            else if (pressedKeys.Contains(e.KeyCode)) pressedKeys.Remove(e.KeyCode);
+        }
+
+        private static void ShowClipboardPopup()
+        {
+            Screen currentScreen = Screen.FromPoint(Cursor.Position);
+            ClipBoardPopup clipboardWindow = new ClipBoardPopup();
+
+            string positionString = Properties.Settings.Default.ClipboardPosition;
+
+            bool isLeft = positionString.Contains("Left");
+            bool isTop = positionString.Contains("Top");
+
+            int x = isLeft ? currentScreen.Bounds.Left : currentScreen.Bounds.Right - clipboardWindow.Width;
+            int y = isTop ? currentScreen.Bounds.Top : currentScreen.Bounds.Bottom - clipboardWindow.Height;
+
+            clipboardWindow.Location = new Point(x, y);
+
+            clipboardWindow.StartPosition = FormStartPosition.Manual;
+
+            clipboardWindow.ShowInTaskbar = false;
+            clipboardWindow.Deactivate += (s, e) =>
+            {
+                Point mousePosition = Cursor.Position;
+                if (!clipboardWindow.Bounds.Contains(mousePosition))
+                {
+                    clipboardWindow.Close();
+                }
+            };
+
+            clipboardWindow.Show();
         }
 
         private static void ShowTemplatePopup()
@@ -119,9 +163,6 @@ namespace Basy
             int y = isTop ? currentScreen.Bounds.Top : currentScreen.Bounds.Bottom - popupWindow.Height;
 
             popupWindow.Location = new Point(x, y);
-
-            /*popupWindow.Left = currentScreen.Bounds.Left;
-            popupWindow.Top = currentScreen.Bounds.Top;*/
 
             popupWindow.StartPosition = FormStartPosition.Manual;
 
@@ -151,6 +192,8 @@ namespace Basy
                 notifyIcon.Visible = false;
                 notifyIcon.Dispose();
             }
+
+            BasyClipboard.StopClipboardMonitoring();
         }
     }
 }

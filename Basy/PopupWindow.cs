@@ -9,7 +9,6 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/*using System.Windows.Controls;*/
 using System.Windows.Forms;
 
 namespace Basy
@@ -29,7 +28,6 @@ namespace Basy
         public PopupWindow()
         {
             InitializeComponent();
-            Utils.EnsureTablesExist();
             populateListWithTemplates();
             BringToFront();
 
@@ -231,8 +229,17 @@ namespace Basy
             ToolStripItem item = (ToolStripItem)sender;
             if (item != null)
             {
-                string textToPaste = ((TVersion)item.Tag).Text;
-                Utils.PasteTextAsync(textToPaste);
+                TVersion selectedversion = (TVersion)item.Tag;
+
+                if (!Utils.VersionHasParametersById(selectedversion.Id))
+                {
+                    Utils.PasteTextAsync(selectedversion.Text);
+                }
+                else
+                {
+                    ParametersTemplateWindow parametersTemplateWindow = new ParametersTemplateWindow(selectedversion.Text);
+                    parametersTemplateWindow.Show();
+                }
             }
             this.Close();
         }
@@ -310,7 +317,7 @@ namespace Basy
 
         private void DrawColorCirclesUnderCbSortBox(List<Tag> selectedTags)
         {
-            _graphicsForCircles = CreateGraphics();
+            _graphicsForCircles = pnlUpper.CreateGraphics();
 
             int margin = 5;
             int ellipseRadius = 15;
@@ -337,25 +344,16 @@ namespace Basy
         {
             if (getsHigher && !_isExtended)
             {
-                lbTemplates.Location = new Point(lbTemplates.Location.X, lbTemplates.Location.Y + 22);
-                this.Size += new Size(0, 22);
+                lbTemplates.Location = new Point(lbTemplates.Location.X, lbTemplates.Location.Y + 12);
+                this.Size += new Size(0, 12);
                 _isExtended = true;
             }
             else if (!getsHigher && _isExtended)
             {
-                lbTemplates.Location = new Point(lbTemplates.Location.X, lbTemplates.Location.Y - 22);
-                this.Size -= new Size(0, 22);
+                lbTemplates.Location = new Point(lbTemplates.Location.X, lbTemplates.Location.Y - 12);
+                this.Size -= new Size(0, 12);
                 _isExtended = false;
-            }
-        }
-
-        private void btnEditorOpen_Click(object sender, EventArgs e)
-        {
-            if (!Utils.FormIsOpenByName("Maineditorwindow"))
-            {
-                Maineditorwindow maineditorwindow = new Maineditorwindow();
-                maineditorwindow.Show();
-                Close();
+                _graphicsForCircles.Clear(Color.DeepSkyBlue);
             }
         }
 
@@ -368,6 +366,16 @@ namespace Basy
                 cbSortBox.SelectedIndex = lastSortIndex;
 
                 cbSortGrid_SelectedIndexChanged(cbSortBox, EventArgs.Empty);
+            }
+        }
+
+        private void mtbOpenEditor_Click(object sender, EventArgs e)
+        {
+            if (!Utils.FormIsOpenByName("Maineditorwindow"))
+            {
+                Maineditorwindow maineditorwindow = new Maineditorwindow();
+                maineditorwindow.Show();
+                Close();
             }
         }
     }

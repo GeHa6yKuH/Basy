@@ -54,7 +54,7 @@ namespace Basy
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void mtbAdd_Click(object sender, EventArgs e)
         {
             if (_templateToEditVersions != null)
             {
@@ -67,7 +67,7 @@ namespace Basy
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void mtbDelete_Click(object sender, EventArgs e)
         {
             TVersion version = (TVersion)lbVersions.Items[lbVersions.SelectedIndex];
             int id = version.Id;

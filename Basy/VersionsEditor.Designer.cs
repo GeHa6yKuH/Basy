@@ -28,65 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VersionsEditor));
             this.lbVersions = new System.Windows.Forms.ListBox();
             this.lblVersions = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
+            this.mtbAdd = new MaterialSkin.Controls.MaterialButton();
+            this.mtbDelete = new MaterialSkin.Controls.MaterialButton();
             this.SuspendLayout();
             // 
             // lbVersions
             // 
-            this.lbVersions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVersions.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lbVersions.FormattingEnabled = true;
-            this.lbVersions.ItemHeight = 24;
+            this.lbVersions.ItemHeight = 23;
             this.lbVersions.Location = new System.Drawing.Point(12, 66);
             this.lbVersions.Name = "lbVersions";
-            this.lbVersions.Size = new System.Drawing.Size(330, 316);
+            this.lbVersions.Size = new System.Drawing.Size(330, 303);
             this.lbVersions.TabIndex = 0;
             // 
             // lblVersions
             // 
             this.lblVersions.AutoSize = true;
-            this.lblVersions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblVersions.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblVersions.Location = new System.Drawing.Point(12, 22);
             this.lblVersions.Name = "lblVersions";
-            this.lblVersions.Size = new System.Drawing.Size(84, 24);
+            this.lblVersions.Size = new System.Drawing.Size(91, 23);
             this.lblVersions.TabIndex = 8;
             this.lblVersions.Text = "Versions";
             // 
-            // btnAdd
+            // mtbAdd
             // 
-            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnAdd.Location = new System.Drawing.Point(12, 408);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(67, 30);
-            this.btnAdd.TabIndex = 10;
-            this.btnAdd.Text = "+";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.mtbAdd.AutoSize = false;
+            this.mtbAdd.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mtbAdd.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mtbAdd.Depth = 0;
+            this.mtbAdd.HighEmphasis = true;
+            this.mtbAdd.Icon = null;
+            this.mtbAdd.Location = new System.Drawing.Point(16, 392);
+            this.mtbAdd.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mtbAdd.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mtbAdd.Name = "mtbAdd";
+            this.mtbAdd.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mtbAdd.Size = new System.Drawing.Size(49, 31);
+            this.mtbAdd.TabIndex = 18;
+            this.mtbAdd.Text = "+";
+            this.mtbAdd.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mtbAdd.UseAccentColor = false;
+            this.mtbAdd.UseVisualStyleBackColor = true;
+            this.mtbAdd.Click += new System.EventHandler(this.mtbAdd_Click);
             // 
-            // btnDelete
+            // mtbDelete
             // 
-            this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnDelete.Location = new System.Drawing.Point(85, 408);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(84, 30);
-            this.btnDelete.TabIndex = 11;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.mtbDelete.AutoSize = false;
+            this.mtbDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mtbDelete.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mtbDelete.Depth = 0;
+            this.mtbDelete.HighEmphasis = true;
+            this.mtbDelete.Icon = null;
+            this.mtbDelete.Location = new System.Drawing.Point(82, 392);
+            this.mtbDelete.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mtbDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mtbDelete.Name = "mtbDelete";
+            this.mtbDelete.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mtbDelete.Size = new System.Drawing.Size(95, 31);
+            this.mtbDelete.TabIndex = 19;
+            this.mtbDelete.Text = "Delete";
+            this.mtbDelete.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mtbDelete.UseAccentColor = false;
+            this.mtbDelete.UseVisualStyleBackColor = true;
+            this.mtbDelete.Click += new System.EventHandler(this.mtbDelete_Click);
             // 
             // VersionsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 450);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnAdd);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(354, 443);
+            this.Controls.Add(this.mtbDelete);
+            this.Controls.Add(this.mtbAdd);
             this.Controls.Add(this.lblVersions);
             this.Controls.Add(this.lbVersions);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VersionsEditor";
-            this.Text = "VersionsEditor";
+            this.Text = "Versions Editor";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,7 +119,7 @@
 
         private System.Windows.Forms.ListBox lbVersions;
         private System.Windows.Forms.Label lblVersions;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnDelete;
+        private MaterialSkin.Controls.MaterialButton mtbAdd;
+        private MaterialSkin.Controls.MaterialButton mtbDelete;
     }
 }

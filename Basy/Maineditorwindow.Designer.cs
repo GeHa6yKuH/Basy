@@ -38,7 +38,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblCurrentControl = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ibShare = new FontAwesome.Sharp.IconButton();
+            this.ibSource = new FontAwesome.Sharp.IconButton();
             this.mainContentPanel = new System.Windows.Forms.Panel();
             this.pnlLeft.SuspendLayout();
             this.pnlLogo.SuspendLayout();
@@ -186,7 +186,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(60)))), ((int)(((byte)(85)))));
-            this.panel1.Controls.Add(this.ibShare);
+            this.panel1.Controls.Add(this.ibSource);
             this.panel1.Controls.Add(this.lblCurrentControl);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(183, 0);
@@ -194,26 +194,26 @@
             this.panel1.Size = new System.Drawing.Size(815, 80);
             this.panel1.TabIndex = 4;
             // 
-            // ibShare
+            // ibSource
             // 
-            this.ibShare.FlatAppearance.BorderSize = 0;
-            this.ibShare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibShare.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ibShare.ForeColor = System.Drawing.Color.Cornsilk;
-            this.ibShare.IconChar = FontAwesome.Sharp.IconChar.Share;
-            this.ibShare.IconColor = System.Drawing.Color.Cornsilk;
-            this.ibShare.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibShare.IconSize = 25;
-            this.ibShare.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibShare.Location = new System.Drawing.Point(16, 28);
-            this.ibShare.Name = "ibShare";
-            this.ibShare.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.ibShare.Size = new System.Drawing.Size(114, 30);
-            this.ibShare.TabIndex = 13;
-            this.ibShare.Text = "Share";
-            this.ibShare.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibShare.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ibShare.UseVisualStyleBackColor = true;
+            this.ibSource.FlatAppearance.BorderSize = 0;
+            this.ibSource.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibSource.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ibSource.ForeColor = System.Drawing.Color.White;
+            this.ibSource.IconChar = FontAwesome.Sharp.IconChar.Github;
+            this.ibSource.IconColor = System.Drawing.Color.White;
+            this.ibSource.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibSource.IconSize = 25;
+            this.ibSource.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibSource.Location = new System.Drawing.Point(15, 28);
+            this.ibSource.Name = "ibSource";
+            this.ibSource.Padding = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.ibSource.Size = new System.Drawing.Size(116, 30);
+            this.ibSource.TabIndex = 13;
+            this.ibSource.Text = "Source";
+            this.ibSource.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ibSource.UseVisualStyleBackColor = true;
+            this.ibSource.Click += new System.EventHandler(this.ibShare_Click);
             // 
             // mainContentPanel
             // 
@@ -257,7 +257,7 @@
         private FontAwesome.Sharp.IconButton ibSettings;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel mainContentPanel;
-        private FontAwesome.Sharp.IconButton ibShare;
+        private FontAwesome.Sharp.IconButton ibSource;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

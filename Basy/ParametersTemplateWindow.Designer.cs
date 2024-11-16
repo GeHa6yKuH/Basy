@@ -28,20 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCopy = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParametersTemplateWindow));
             this.pnlTemplate = new System.Windows.Forms.FlowLayoutPanel();
+            this.mtbCopy = new MaterialSkin.Controls.MaterialButton();
             this.SuspendLayout();
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnCopy.Location = new System.Drawing.Point(12, 338);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(104, 32);
-            this.btnCopy.TabIndex = 10;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // pnlTemplate
             // 
@@ -50,13 +40,36 @@
             this.pnlTemplate.Size = new System.Drawing.Size(664, 320);
             this.pnlTemplate.TabIndex = 0;
             // 
+            // mtbCopy
+            // 
+            this.mtbCopy.AutoSize = false;
+            this.mtbCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mtbCopy.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.mtbCopy.Depth = 0;
+            this.mtbCopy.HighEmphasis = true;
+            this.mtbCopy.Icon = null;
+            this.mtbCopy.Location = new System.Drawing.Point(12, 341);
+            this.mtbCopy.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.mtbCopy.MouseState = MaterialSkin.MouseState.HOVER;
+            this.mtbCopy.Name = "mtbCopy";
+            this.mtbCopy.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.mtbCopy.Size = new System.Drawing.Size(112, 36);
+            this.mtbCopy.TabIndex = 11;
+            this.mtbCopy.Text = "Copy";
+            this.mtbCopy.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.mtbCopy.UseAccentColor = false;
+            this.mtbCopy.UseVisualStyleBackColor = true;
+            this.mtbCopy.Click += new System.EventHandler(this.mtbCopy_Click);
+            // 
             // ParametersTemplateWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(688, 381);
+            this.Controls.Add(this.mtbCopy);
             this.Controls.Add(this.pnlTemplate);
-            this.Controls.Add(this.btnCopy);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ParametersTemplateWindow";
             this.Text = "ParametersTemplateWindow";
             this.Load += new System.EventHandler(this.ParametersTemplateWindow_Load);
@@ -65,7 +78,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.FlowLayoutPanel pnlTemplate;
+        private MaterialSkin.Controls.MaterialButton mtbCopy;
     }
 }
