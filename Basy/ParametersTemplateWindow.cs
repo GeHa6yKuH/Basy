@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Basy
 {
@@ -31,7 +32,11 @@ namespace Basy
         private void FillTemplatePannel()
         {
             pnlTemplate.Controls.Clear();
-            int yPosition = 0;
+            pnlTemplate.AutoScroll = true;
+
+            int x = 0;
+            int y = 0;
+            int panelWidth = pnlTemplate.ClientSize.Width;
             int spacing = 10;
 
             int lastIndex = 0;
@@ -42,37 +47,100 @@ namespace Basy
 
                 if (paramStart > lastIndex)
                 {
-                    Label lblText = new Label
+                    string textSegment = _templateText.Substring(lastIndex, paramStart - lastIndex);
+                    string[] lines = textSegment.Split('\n');
+
+                    for (int i = 0; i < lines.Length; i++)
                     {
-                        Text = _templateText.Substring(lastIndex, paramStart - lastIndex),
-                        AutoSize = true
-                    };
-                    pnlTemplate.Controls.Add(lblText);
-                    yPosition += lblText.Height + spacing;
+                        string line = lines[i];
+                        if (!string.IsNullOrEmpty(line))
+                        {
+                            Label lblText = new Label
+                            {
+                                Text = line,
+                                Font = new Font("Verdana", 12),
+                                AutoSize = true
+                            };
+
+                            if (x + lblText.PreferredWidth > panelWidth)
+                            {
+                                x = 0;
+                                y += lblText.Height + spacing;
+                            }
+
+                            lblText.Location = new Point(x, y);
+                            pnlTemplate.Controls.Add(lblText);
+                            x += lblText.PreferredWidth + spacing;
+
+                            int lastLabelHeight = lblText.Height;
+
+                            if (i != lines.Length - 1)
+                            {
+                                x = 0;
+                                y += lastLabelHeight + spacing;
+                            }
+                        }
+                    }
                 }
 
                 TextBox txtParameter = new TextBox
                 {
                     Width = 100,
                     Tag = parameter,
-                    Location = new Point(0, yPosition)
+                    Font = new Font("Verdana", 12)
                 };
-                _parameterTextBoxes.Add(txtParameter);
+
+                if (x + txtParameter.Width > panelWidth)
+                {
+                    x = 0;
+                    y += txtParameter.Height + spacing;
+                }
+
+                txtParameter.Location = new Point(x, y);
                 pnlTemplate.Controls.Add(txtParameter);
-                yPosition += txtParameter.Height + spacing;
+                _parameterTextBoxes.Add(txtParameter);
+                x += txtParameter.Width + spacing;
 
                 lastIndex = paramStart + parameter.Length + 2;
             }
 
+
             if (lastIndex < _templateText.Length)
             {
-                Label lblText = new Label
+                string trailingText = _templateText.Substring(lastIndex);
+                string[] lines = trailingText.Split('\n');
+
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    Text = _templateText.Substring(lastIndex),
-                    AutoSize = true,
-                    Location = new Point(0, yPosition)
-                };
-                pnlTemplate.Controls.Add(lblText);
+                    string line = lines[i];
+                    if (!string.IsNullOrEmpty(line))
+                    {
+                        Label lblText = new Label
+                        {
+                            Text = line,
+                            Font = new Font("Verdana", 12),
+                            AutoSize = true
+                        };
+
+                        if (x + lblText.PreferredWidth > panelWidth)
+                        {
+                            x = 0;
+                            y += lblText.Height + spacing;
+                        }
+
+                        lblText.Location = new Point(x, y);
+                        pnlTemplate.Controls.Add(lblText);
+                        x += lblText.PreferredWidth + spacing;
+
+                        int lastLabelHeight = lblText.Height;
+
+                        if (i != lines.Length - 1)
+                        {
+                            x = 0;
+                            y += lastLabelHeight + spacing;
+                        }
+                    }
+                }
             }
         }
 

@@ -29,16 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParametersTemplateWindow));
-            this.pnlTemplate = new System.Windows.Forms.FlowLayoutPanel();
             this.mtbCopy = new MaterialSkin.Controls.MaterialButton();
+            this.pnlTemplate = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // pnlTemplate
-            // 
-            this.pnlTemplate.Location = new System.Drawing.Point(12, 12);
-            this.pnlTemplate.Name = "pnlTemplate";
-            this.pnlTemplate.Size = new System.Drawing.Size(664, 320);
-            this.pnlTemplate.TabIndex = 0;
             // 
             // mtbCopy
             // 
@@ -48,7 +41,7 @@
             this.mtbCopy.Depth = 0;
             this.mtbCopy.HighEmphasis = true;
             this.mtbCopy.Icon = null;
-            this.mtbCopy.Location = new System.Drawing.Point(12, 341);
+            this.mtbCopy.Location = new System.Drawing.Point(13, 330);
             this.mtbCopy.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.mtbCopy.MouseState = MaterialSkin.MouseState.HOVER;
             this.mtbCopy.Name = "mtbCopy";
@@ -61,14 +54,21 @@
             this.mtbCopy.UseVisualStyleBackColor = true;
             this.mtbCopy.Click += new System.EventHandler(this.mtbCopy_Click);
             // 
+            // pnlTemplate
+            // 
+            this.pnlTemplate.Location = new System.Drawing.Point(13, 12);
+            this.pnlTemplate.Name = "pnlTemplate";
+            this.pnlTemplate.Size = new System.Drawing.Size(661, 309);
+            this.pnlTemplate.TabIndex = 0;
+            // 
             // ParametersTemplateWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(688, 381);
-            this.Controls.Add(this.mtbCopy);
+            this.ClientSize = new System.Drawing.Size(695, 381);
             this.Controls.Add(this.pnlTemplate);
+            this.Controls.Add(this.mtbCopy);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ParametersTemplateWindow";
             this.Text = "ParametersTemplateWindow";
@@ -78,7 +78,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.FlowLayoutPanel pnlTemplate;
         private MaterialSkin.Controls.MaterialButton mtbCopy;
+        private System.Windows.Forms.Panel pnlTemplate;
     }
 }

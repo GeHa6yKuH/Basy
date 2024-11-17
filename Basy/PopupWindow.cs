@@ -367,6 +367,8 @@ namespace Basy
 
                 cbSortGrid_SelectedIndexChanged(cbSortBox, EventArgs.Empty);
             }
+
+            lbTemplates.SelectedIndex = -1;
         }
 
         private void mtbOpenEditor_Click(object sender, EventArgs e)

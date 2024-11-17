@@ -13,8 +13,9 @@ namespace Basy
 {
     public partial class ChooseVersion : Form
     {
-        Template _templateToChooseVersions;
-        List<TVersion> _versions;
+        private Template _templateToChooseVersions;
+        private List<TVersion> _versions;
+        private int _versionCount;
 
         public ChooseVersion(Template template)
         {
@@ -45,8 +46,10 @@ namespace Basy
 
                 int rightMargin = 15;
                 int bottomMargin = 20;
-                int xPosition = lblPleaseChoose.Left - 15;
+                int xPosition = lblPleaseChoose.Left - 90;
                 int yPosition = lblPleaseChoose.Bottom + bottomMargin;
+                int secondRowYPosition = yPosition + 60;
+                bool positionChanged = false;
 
                 foreach (TVersion version in _versions)
                 {
@@ -54,9 +57,18 @@ namespace Basy
                     {
                         Name = "btn" + version.Name,
                         Text = version.Name,
-                        Size = new Size(100, 25),
-                        Font = new Font("Microsoft Sans Serif", 10)
+                        Size = new Size(100, 35),
+                        Font = new Font("Microsoft Sans Serif", 12)
                     };
+
+                    bool isSecondRow = _versionCount > 3;
+
+                    if (isSecondRow && !positionChanged)
+                    {
+                        yPosition = secondRowYPosition;
+                        xPosition = lblPleaseChoose.Left - 90;
+                        positionChanged = true;
+                    }
 
                     button.Location = new Point(xPosition, yPosition);
 
@@ -74,6 +86,7 @@ namespace Basy
                         }
                     };
 
+                    _versionCount++;
                     Controls.Add(button);
 
                     xPosition += button.Width + rightMargin;

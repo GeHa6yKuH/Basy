@@ -94,11 +94,6 @@ namespace Basy
                 ShowClipboardPopup();
             }
 
-            if (e.Control && e.Shift && e.KeyCode == Keys.Y)
-            {
-                ShowTemplatePopup();
-            }
-
             // Editor
 
             if (string.Join(" + ", pressedKeys) == Properties.Settings.Default.HotkeyEditor)
@@ -161,6 +156,9 @@ namespace Basy
 
             int x = isLeft ? currentScreen.Bounds.Left : currentScreen.Bounds.Right - popupWindow.Width;
             int y = isTop ? currentScreen.Bounds.Top : currentScreen.Bounds.Bottom - popupWindow.Height;
+
+            x = positionString.Contains("Coursor") ? Cursor.Position.X - popupWindow.Width : x;
+            y = positionString.Contains("Coursor") ? Cursor.Position.Y - popupWindow.Height : y;
 
             popupWindow.Location = new Point(x, y);
 

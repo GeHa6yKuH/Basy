@@ -47,7 +47,7 @@ namespace Basy
                     _clips.Add(new BasyClip { Name = text, Value = text });
                 }
             }
-            else
+            else if (Properties.Settings.Default.SaveImagesToClips)
             {
                 IDataObject clipboardData = Clipboard.GetDataObject();
                 if (clipboardData != null)

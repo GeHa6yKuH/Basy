@@ -35,7 +35,7 @@
             // 
             this.lblPleaseChoose.AutoSize = true;
             this.lblPleaseChoose.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPleaseChoose.Location = new System.Drawing.Point(110, 36);
+            this.lblPleaseChoose.Location = new System.Drawing.Point(111, 27);
             this.lblPleaseChoose.Name = "lblPleaseChoose";
             this.lblPleaseChoose.Size = new System.Drawing.Size(251, 25);
             this.lblPleaseChoose.TabIndex = 0;
@@ -46,7 +46,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(478, 176);
+            this.ClientSize = new System.Drawing.Size(478, 196);
             this.Controls.Add(this.lblPleaseChoose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ChooseVersion";

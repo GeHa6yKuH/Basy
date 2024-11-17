@@ -152,11 +152,11 @@ namespace Basy
                     DROP TABLE IF EXISTS logs;
                 ";
 
-               /* DROP TABLE IF EXISTS tags;
-                DROP TABLE IF EXISTS template_tags;
-                DROP TABLE IF EXISTS logs;
-                DROP TABLE IF EXISTS users;
-                DROP TABLE IF EXISTS credentials;*/
+                /* DROP TABLE IF EXISTS tags;
+                 DROP TABLE IF EXISTS template_tags;
+                 DROP TABLE IF EXISTS logs;
+                 DROP TABLE IF EXISTS users;
+                 DROP TABLE IF EXISTS credentials;*/
 
                 using (var command = new SqliteCommand(deleteQuery, connection))
                 {
@@ -172,7 +172,7 @@ namespace Basy
             EnsureTableExists(Queries.CreateTagsTable);
 
             EnsureTableExists(Queries.CreateTemplatesTagsTable);
-            
+
             EnsureTableExists(Queries.CreateLogsTable);
 
             EnsureTableExists(Queries.CreateVersionsTable);
@@ -287,8 +287,8 @@ namespace Basy
             return null;
         }
 
-        public static void deleteTemplateById(int templateId) 
-        { 
+        public static void deleteTemplateById(int templateId)
+        {
             using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
             {
                 connection.Open();
@@ -310,6 +310,33 @@ namespace Basy
                     else
                     {
                         MessageBox.Show("Something went wrong, please try again!");
+                    }
+                }
+            }
+        }
+
+        public static void DeleteTemplatesByIdList(List<int> idList)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string query = @"
+                DELETE FROM templates 
+                WHERE id = @id";
+
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqliteParameter("@id", DbType.Int32));
+
+                    foreach (int id in idList)
+                    {
+                        Template templateToDelete = findTemplateById(id);
+                        Utils.LogToHistory(Operations.Delete, $"Template {templateToDelete.Name}" +
+                            $" with text {templateToDelete.Text} has been deleted!");
+
+                        command.Parameters["@id"].Value = id;
+                        command.ExecuteNonQuery();
                     }
                 }
             }

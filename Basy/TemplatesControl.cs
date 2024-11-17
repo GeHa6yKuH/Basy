@@ -243,22 +243,52 @@ namespace Basy
         {
             try
             {
-                int id = (int)dGVTemplates.SelectedRows[0].Cells["id"].Value;
-
-                Template templateToDelete = Utils.findTemplateById(id);
-
-                if (templateToDelete != null)
+                var selectedRaws = dGVTemplates.SelectedRows;
+                if (selectedRaws.Count > 0)
                 {
-                    DialogResult userConfirms = MessageBox.Show($"Are you sure you want to delete {templateToDelete.Name} Template?", "Delete", MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning);
-
-                    if (userConfirms == DialogResult.Yes)
+                    if (dGVTemplates.SelectedRows.Count == 1)
                     {
-                        Utils.deleteTemplateById(id);
-                        Utils.LogToHistory(Operations.Delete, $"Template {templateToDelete.Name}" +
-                        $" with text {templateToDelete.Text} has been deleted!");
-                        dGVTemplates.Refresh();
-                        PopulateGrid();
+                        int id = (int)dGVTemplates.SelectedRows[0].Cells["id"].Value;
+
+                        Template templateToDelete = Utils.findTemplateById(id);
+
+                        if (templateToDelete != null)
+                        {
+                            DialogResult userConfirms = MessageBox.Show($"Are you sure you want to delete {templateToDelete.Name} Template?", "Delete", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning);
+
+                            if (userConfirms == DialogResult.Yes)
+                            {
+                                Utils.deleteTemplateById(id);
+                                Utils.LogToHistory(Operations.Delete, $"Template {templateToDelete.Name}" +
+                                $" with text {templateToDelete.Text} has been deleted!");
+                                dGVTemplates.Refresh();
+                                PopulateGrid();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        List<int> idList = new List<int>();
+
+                        for (global::System.Int32 i = 0; i < selectedRaws.Count; i++)
+                        {
+                            int id = (int)selectedRaws[i].Cells["id"].Value;
+                            idList.Add(id);
+                        }
+
+                        if (idList.Count > 0)
+                        {
+                            DialogResult userConfirms = MessageBox.Show($"Are you sure you want to delete selected templates?", "Delete", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning);
+
+                            if (userConfirms == DialogResult.Yes)
+                            {
+                                Utils.DeleteTemplatesByIdList(idList);
+                                dGVTemplates.Refresh();
+                                PopulateGrid();
+                            }
+                        }
                     }
                 }
             }
@@ -283,6 +313,14 @@ namespace Basy
         private void mbtnUpdateGrid_Click(object sender, EventArgs e)
         {
             SelectIndexInSortGrid(2);
+        }
+
+        private void dGVTemplates_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                dGVTemplates.Rows[e.RowIndex].Selected = true;
+            }
         }
     }
 }

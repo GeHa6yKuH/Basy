@@ -142,5 +142,17 @@ namespace Basy.Properties {
                 this["ShowTemplateTextOnHover"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveImagesToClips {
+            get {
+                return ((bool)(this["SaveImagesToClips"]));
+            }
+            set {
+                this["SaveImagesToClips"] = value;
+            }
+        }
     }
 }

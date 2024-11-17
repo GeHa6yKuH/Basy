@@ -14,6 +14,7 @@ namespace Basy
     public partial class ClipBoardPopup : Form
     {
         private List<BasyClip> _clips = new List<BasyClip>();
+        private ToolTip _toolTipForText = new ToolTip();
 
         public ClipBoardPopup()
         {
@@ -22,6 +23,31 @@ namespace Basy
             BringToFront();
 
             lbClips.Click += PasteClip;
+            lbClips.MouseMove += ShowToolbox;
+        }
+
+        private void ShowToolbox(object sender, MouseEventArgs e)
+        {
+            if (lbClips != null)
+            {
+                int index = lbClips.IndexFromPoint(e.Location);
+
+                if (index >= 0 && index < lbClips.Items.Count)
+                {
+                    BasyClip clip = (BasyClip)lbClips.Items[index];
+
+                    string itemText = clip.Name;
+
+                    if (_toolTipForText.GetToolTip(lbClips) != itemText)
+                    {
+                        _toolTipForText.SetToolTip(lbClips, itemText);
+                    }
+                }
+                else
+                {
+                    _toolTipForText.SetToolTip(lbClips, "");
+                }
+            }
         }
 
         private void PasteClip(object sender, EventArgs e)
