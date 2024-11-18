@@ -76,8 +76,6 @@ namespace Basy
         {
                 templates.Clear();
 
-                Utils.EnsureTablesExist();
-
                 templates = Utils.GetAllTemplates();
 
                 dGVTemplates.DataSource = templates;

@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
@@ -49,99 +50,6 @@ namespace Basy
             }
         }
 
-        public static bool CreateUserIfNotExist(string username, string password, string email)
-        {
-            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-            {
-                connection.Open();
-
-                // Check if the username or email already exists
-                string checkUserQuery = @"
-                SELECT COUNT(*) 
-                FROM users 
-                WHERE username = @username OR email = @Email";
-
-                using (var checkCommand = new SqliteCommand(checkUserQuery, connection))
-                {
-                    checkCommand.Parameters.AddWithValue("@username", username);
-                    checkCommand.Parameters.AddWithValue("@Email", email);
-
-                    long userExists = (long)checkCommand.ExecuteScalar();
-
-                    if (userExists > 0)
-                    {
-                        return false;  // User with the same username or email already exists
-                    }
-                }
-
-                // If no user exists, insert the new user
-                string insertUserQuery = @"
-                INSERT INTO users (username, email, password) 
-                VALUES (@username, @Email, @Password)";
-
-                using (var insertCommand = new SqliteCommand(insertUserQuery, connection))
-                {
-                    // Hash the password before storing it (use BCrypt or other hashing mechanisms for security)
-                    string hashedPassword = HashPassword(password);
-
-                    insertCommand.Parameters.AddWithValue("@username", username);
-                    insertCommand.Parameters.AddWithValue("@Email", email);
-                    insertCommand.Parameters.AddWithValue("@Password", hashedPassword);
-
-                    insertCommand.ExecuteNonQuery();  // Insert the new user
-                }
-            }
-
-            return true;  // User successfully created
-        }
-
-        public static string HashPassword(string password)
-        {
-            SHA256 sha = SHA256.Create();
-
-            byte[] data = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            for (global::System.Int32 i = 0; i < data.Length; i++)
-            {
-                stringBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return stringBuilder.ToString();
-        }
-
-        public static bool ValidateUserCredentials(string username, string enteredPassword)
-        {
-            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
-            {
-                connection.Open();
-
-                // Query to get the user's hashed password from the database
-                string query = @"
-                SELECT password 
-                FROM users 
-                WHERE username = @username OR email = @username";
-
-                using (var command = new SqliteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@username", username);
-
-                    var result = command.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        string storedHashedPassword = result.ToString();
-                        string enteredHashedPassword = HashPassword(enteredPassword);
-
-                        return storedHashedPassword == enteredHashedPassword;
-                    }
-                }
-            }
-
-            return false;
-        }
-
         public static void DeleteAllTables()
         {
             using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
@@ -167,19 +75,25 @@ namespace Basy
 
         public static void EnsureTablesExist()
         {
-            EnsureTableExists(Queries.CreateTemplatesTable);
+            if (Properties.Settings.Default.FirstStart)
+            {
+                EnsureTableExists(Queries.CreateTemplatesTable);
 
-            EnsureTableExists(Queries.CreateTagsTable);
+                EnsureTableExists(Queries.CreateTagsTable);
 
-            EnsureTableExists(Queries.CreateTemplatesTagsTable);
+                EnsureTableExists(Queries.CreateTemplatesTagsTable);
 
-            EnsureTableExists(Queries.CreateLogsTable);
+                EnsureTableExists(Queries.CreateLogsTable);
 
-            EnsureTableExists(Queries.CreateVersionsTable);
+                EnsureTableExists(Queries.CreateVersionsTable);
 
-            EnsureTableExists(Queries.CreateParametersTable);
+                EnsureTableExists(Queries.CreateParametersTable);
 
-            //PopulateSampleTemplates();
+                PopulateSampleTemplates();
+
+                Properties.Settings.Default.FirstStart = false;
+                Properties.Settings.Default.Save();
+            }
         }
 
         public static void PopulateSampleTemplates()
@@ -188,19 +102,32 @@ namespace Basy
             {
                 connection.Open();
 
-                // Insert sample templates directly
+                // Insert sample templates directly, including new fields
                 string insertQuery1 = @"
-                    INSERT INTO templates (name, text, created_at, has_more_versions) 
-                    VALUES ('Welcome Email', 'Dear User,\n\nWelcome to our service!\n\nBest,\nThe Team', @created_at, 0)";
+            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id) 
+            VALUES ('Welcome to Basy', 'Hello,\n\nWelcome to Basy!', @created_at, 0, NULL)";
 
                 string insertQuery2 = @"
-                    INSERT INTO templates (name, text, created_at, has_more_versions)
-                    VALUES ('Password Reset', 'Hello,\n\nClick here to reset your password.\n\nBest,\nSupport', @created_at, 0)";
+            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
+            VALUES ('Usage', 'Please feel free to explore the wide range of functionlity offered to you by basy app such as managing Templates', @created_at, 0, NULL)";
 
                 string insertQuery3 = @"
-                    INSERT INTO templates (name, text, created_at, has_more_versions)
-                    VALUES ('Feedback Request', 'Hi,\n\nWe value your feedback. Please let us know how we did!\n\nThanks,\nThe Team', @created_at, 0)";
+            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
+            VALUES ('Issues', 'Please share any issues you encounter along the way of using app on HitHub', @created_at, 0, NULL)";
 
+                string insertQuery4 = @"
+            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
+            VALUES ('Python HW', 'print(''Hello, World!'')', @created_at, 0, NULL)";
+
+                string insertQuery5 = @"
+            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
+            VALUES ('C++ HW', '#include <iostream>\nint main() {\n    std::cout << ''Hello, World!'' << std::endl;\n    return 0;\n}', @created_at, 0, NULL)";
+
+                string insertQuery6 = @"
+            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
+            VALUES ('Powershell HW', 'Write-Output ''Hello, World!''', @created_at, 0, NULL)";
+
+                // Prepare and execute each command
                 using (var command1 = new SqliteCommand(insertQuery1, connection))
                 {
                     command1.Parameters.AddWithValue("@created_at", DateTime.Now);
@@ -217,6 +144,24 @@ namespace Basy
                 {
                     command3.Parameters.AddWithValue("@created_at", DateTime.Now);
                     command3.ExecuteNonQuery();
+                }
+
+                using (var command4 = new SqliteCommand(insertQuery4, connection))
+                {
+                    command4.Parameters.AddWithValue("@created_at", DateTime.Now);
+                    command4.ExecuteNonQuery();
+                }
+
+                using (var command5 = new SqliteCommand(insertQuery5, connection))
+                {
+                    command5.Parameters.AddWithValue("@created_at", DateTime.Now);
+                    command5.ExecuteNonQuery();
+                }
+
+                using (var command6 = new SqliteCommand(insertQuery6, connection))
+                {
+                    command6.Parameters.AddWithValue("@created_at", DateTime.Now);
+                    command6.ExecuteNonQuery();
                 }
             }
         }
