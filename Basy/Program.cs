@@ -28,8 +28,7 @@ namespace Basy
 
             Utils.EnsureTablesExist();
 
-            string solutionPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
-            string iconPath = Path.Combine(solutionPath, "UI", "Logo", "logo_for_icon.ico");
+            string iconPath = Path.Combine(Application.StartupPath, "logo_for_icon.ico");
 
             notifyIcon = new NotifyIcon
             {
