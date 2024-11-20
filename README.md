@@ -43,6 +43,6 @@ Here you can find a detailed explanation of setting up the app on Windows:
    Build the project in your local IDE.
 3. **Move dll:**
     Move e_sqlite3.dll from Dependencies folder into Basy\bin\YOUR_CONFIGURATION
-4. **Run the Game:**
+4. **Run the App:**
     - Navigate to Basy\bin\YOUR_CONFIGURATION.
     - Run Basy.exe.
