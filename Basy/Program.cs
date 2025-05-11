@@ -37,7 +37,26 @@ namespace Basy
                 Text = "Basy App",
             };
 
-            notifyIcon.Click += OpenEditor;
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+
+            ToolStripMenuItem openEditorItem = new ToolStripMenuItem("Open Editor");
+            openEditorItem.Click += (s, e) => OpenEditor();
+            contextMenu.Items.Add(openEditorItem);
+
+            ToolStripMenuItem exitItem = new ToolStripMenuItem("Terminate");
+            exitItem.Click += (s, e) => Application.Exit();
+            contextMenu.Items.Add(exitItem);
+
+            notifyIcon.ContextMenuStrip = contextMenu;
+
+            notifyIcon.MouseClick += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    OpenEditor();
+                }
+            };
+
             notifyIcon.Visible = true;
 
             globalHook = Hook.GlobalEvents();
@@ -61,6 +80,15 @@ namespace Basy
             }
 
             Application.Run(baseBasyForm);
+        }
+
+        private static void OpenEditor()
+        {
+            if (!Utils.FormIsOpenByName("Maineditorwindow"))
+            {
+                Maineditorwindow maineditorwindow = new Maineditorwindow();
+                maineditorwindow.Show();
+            }
         }
 
         private static void OpenEditor(object sender, EventArgs e)
