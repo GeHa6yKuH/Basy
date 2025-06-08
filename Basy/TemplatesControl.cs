@@ -320,5 +320,10 @@ namespace Basy
                 dGVTemplates.Rows[e.RowIndex].Selected = true;
             }
         }
+
+        private void dGVTemplates_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

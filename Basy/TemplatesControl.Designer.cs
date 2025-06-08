@@ -130,6 +130,7 @@
             this.dGVTemplates.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dGVTemplates.Size = new System.Drawing.Size(758, 371);
             this.dGVTemplates.TabIndex = 14;
+            this.dGVTemplates.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGVTemplates_CellContentClick);
             this.dGVTemplates.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGVTemplates_CellMouseClick);
             // 
             // mbtnDelete

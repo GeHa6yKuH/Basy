@@ -23,6 +23,9 @@ namespace Basy
         [STAThread]
         static void Main()
         {
+            string licenseKey = Environment.GetEnvironmentVariable("SYNCFUSION_LICENSE_KEY");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(licenseKey);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -86,7 +89,7 @@ namespace Basy
         {
             if (!Utils.FormIsOpenByName("Maineditorwindow"))
             {
-                Maineditorwindow maineditorwindow = new Maineditorwindow();
+                mainSync maineditorwindow = new mainSync();
                 maineditorwindow.Show();
             }
         }
@@ -95,7 +98,7 @@ namespace Basy
         {
             if (!Utils.FormIsOpenByName("Maineditorwindow"))
             {
-                Maineditorwindow maineditorwindow = new Maineditorwindow();
+                mainSync maineditorwindow = new mainSync();
                 maineditorwindow.Show();
             }
         }

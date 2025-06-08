@@ -1,4 +1,5 @@
 ﻿using Basy.Models;
+using FontAwesome.Sharp;
 using Microsoft.Data.Sqlite;
 using Microsoft.Win32;
 using System;
@@ -36,7 +37,7 @@ namespace Basy
 
             using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
             {
-                connection.Open();  // This will create the database file if it doesn't exist.
+                connection.Open();
 
                 using (var command = new SqliteCommand("PRAGMA foreign_keys = ON;", connection))
                 {
@@ -45,7 +46,7 @@ namespace Basy
 
                 using (var command = new SqliteCommand(queryToRun, connection))
                 {
-                    command.ExecuteNonQuery();  // This will create the table if it doesn't exist.
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -57,14 +58,21 @@ namespace Basy
                 connection.Open();
 
                 string deleteQuery = @"
+                    DROP TABLE IF EXISTS packages;
+                    DROP TABLE IF EXISTS tags;
+                    DROP TABLE IF EXISTS template_tags;
                     DROP TABLE IF EXISTS logs;
+                    DROP TABLE IF EXISTS users;
+                    DROP TABLE IF EXISTS credentials;
+                    DROP TABLE IF EXISTS templates;
                 ";
 
                 /* DROP TABLE IF EXISTS tags;
                  DROP TABLE IF EXISTS template_tags;
                  DROP TABLE IF EXISTS logs;
                  DROP TABLE IF EXISTS users;
-                 DROP TABLE IF EXISTS credentials;*/
+                 DROP TABLE IF EXISTS credentials;
+                 DROP TABLE IF EXISTS templates;*/
 
                 using (var command = new SqliteCommand(deleteQuery, connection))
                 {
@@ -75,8 +83,12 @@ namespace Basy
 
         public static void EnsureTablesExist()
         {
+
+
             if (Properties.Settings.Default.FirstStart)
             {
+                EnsureTableExists(Queries.CreatePackagesTable);
+
                 EnsureTableExists(Queries.CreateTemplatesTable);
 
                 EnsureTableExists(Queries.CreateTagsTable);
@@ -104,28 +116,24 @@ namespace Basy
 
                 // Insert sample templates directly, including new fields
                 string insertQuery1 = @"
-            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id) 
-            VALUES ('Welcome to Basy', 'Hello,\n\nWelcome to Basy!', @created_at, 0, NULL)";
+            INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id) 
+            VALUES (NULL, 'Welcome to Basy', 'Hello,\n\nWelcome to Basy!', @created_at, 0, NULL)";
 
                 string insertQuery2 = @"
-            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
-            VALUES ('Usage', 'Please feel free to explore the wide range of functionlity offered to you by basy app such as managing Templates', @created_at, 0, NULL)";
+            INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id)
+            VALUES (NULL, 'Usage', 'Please feel free to explore the wide range of functionlity offered to you by basy app such as managing Templates', @created_at, 0, NULL)";
 
                 string insertQuery3 = @"
-            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
-            VALUES ('Issues', 'Please share any issues you encounter along the way of using app on HitHub', @created_at, 0, NULL)";
+            INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id)
+            VALUES (NULL, 'Issues', 'Please share any issues you encounter along the way of using app on HitHub', @created_at, 0, NULL)";
 
                 string insertQuery4 = @"
-            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
-            VALUES ('Python HW', 'print(''Hello, World!'')', @created_at, 0, NULL)";
+            INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id)
+            VALUES (NULL, 'Python HW', 'print(''Hello, World!'')', @created_at, 0, NULL)";
 
                 string insertQuery5 = @"
-            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
-            VALUES ('C++ HW', '#include <iostream>\nint main() {\n    std::cout << ''Hello, World!'' << std::endl;\n    return 0;\n}', @created_at, 0, NULL)";
-
-                string insertQuery6 = @"
-            INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id)
-            VALUES ('Powershell HW', 'Write-Output ''Hello, World!''', @created_at, 0, NULL)";
+            INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id)
+            VALUES (NULL, 'C++ HW', '#include <iostream>\nint main() {\n    std::cout << ''Hello, World!'' << std::endl;\n    return 0;\n}', @created_at, 0, NULL)";
 
                 // Prepare and execute each command
                 using (var command1 = new SqliteCommand(insertQuery1, connection))
@@ -157,12 +165,6 @@ namespace Basy
                     command5.Parameters.AddWithValue("@created_at", DateTime.Now);
                     command5.ExecuteNonQuery();
                 }
-
-                using (var command6 = new SqliteCommand(insertQuery6, connection))
-                {
-                    command6.Parameters.AddWithValue("@created_at", DateTime.Now);
-                    command6.ExecuteNonQuery();
-                }
             }
         }
 
@@ -192,6 +194,39 @@ namespace Basy
                                 Id = int.Parse(reader["id"].ToString()),
                                 Name = reader["name"].ToString(),
                                 Text = reader["text"].ToString()
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static Package findPackageById(Guid packageId)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string query = @"
+                SELECT * 
+                FROM packages
+                WHERE id = @id";
+
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", packageId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Guid guid;
+                            Guid.TryParse(reader["id"].ToString(), out guid);
+                            return new Package
+                            {
+                                Id = guid,
+                                Name = reader["name"].ToString(),
                             };
                         }
                     }
@@ -260,6 +295,34 @@ namespace Basy
             }
         }
 
+        public static void deletePackageById(Guid packageId)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string query = @"
+                DELETE FROM packages 
+                WHERE id = @id";
+
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", packageId);
+
+                    int SomeRowFound = command.ExecuteNonQuery();
+
+                    if (SomeRowFound > 0)
+                    {
+                        MessageBox.Show("Package deleted succesfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong, please try again!");
+                    }
+                }
+            }
+        }
+
         public static void DeleteTemplatesByIdList(List<int> idList)
         {
             using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
@@ -279,6 +342,33 @@ namespace Basy
                         Template templateToDelete = findTemplateById(id);
                         Utils.LogToHistory(Operations.Delete, $"Template {templateToDelete.Name}" +
                             $" with text {templateToDelete.Text} has been deleted!");
+
+                        command.Parameters["@id"].Value = id;
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        public static void DeletePackagesByIdList(List<Guid> idList)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string query = @"
+                DELETE FROM packages 
+                WHERE id = @id";
+
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqliteParameter("@id", DbType.Guid));
+
+                    foreach (Guid id in idList)
+                    {
+                        Package packageToDelete = findPackageById(id);
+                        Utils.LogToHistory(Operations.Delete, $"Template {packageToDelete.Name}" +
+                            $" has been deleted!");
 
                         command.Parameters["@id"].Value = id;
                         command.ExecuteNonQuery();
@@ -445,6 +535,43 @@ namespace Basy
             return tags;
         }
 
+        public static BindingList<Package> GetAllPackages()
+        {
+            List<Package> packages = new List<Package>();
+
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string query = @"
+                        SELECT id, name, description, version
+                        FROM packages";
+
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Guid id = Guid.NewGuid();
+                            if (Guid.TryParse(reader["id"].ToString(), out id))
+                            {
+                                packages.Add(new Package
+                                {
+                                    Id = id,
+                                    Name = reader["name"].ToString(),
+                                    Description = reader["description"].ToString(),
+                                    Version = reader["version"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return new BindingList<Package>(packages);
+        }
+
         public static bool FormIsOpenByName(string formName)
         {
             FormCollection openForms = System.Windows.Forms.Application.OpenForms;
@@ -490,6 +617,33 @@ namespace Basy
                 using (var command = new SqliteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", templateId);
+
+                    var result = command.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CheckExistanceOfPackageById(Guid packageId)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string query = @"
+                SELECT id
+                FROM packages
+                WHERE id = @id";
+
+                using (var command = new SqliteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", packageId);
 
                     var result = command.ExecuteScalar();
 
@@ -585,6 +739,105 @@ namespace Basy
                         command.Parameters.AddWithValue("@tag_id", newTagId);
                         command.ExecuteNonQuery();
                     }
+                }
+            }
+        }
+
+        public static void AddNewPackage(Package package)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string insertQuery = @"
+                    INSERT INTO packages (id, name, description, version) 
+                    VALUES (@id, @name, @description, @version)";
+
+                using (var command = new SqliteCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@id", package.Id);
+                    command.Parameters.AddWithValue("@name", package.Name);
+                    command.Parameters.AddWithValue("@description", package.Description);
+                    command.Parameters.AddWithValue("@version", package.Version);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void AddNewTemplate(Template template)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                string insertQuery = @"
+                    INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id) 
+                    VALUES (@packageId, @name, @text, @created_at, 0, NULL);
+                    SELECT last_insert_rowid();";
+
+                long newLongTemplateId;
+                int newTemplateId;
+
+                using (var command = new SqliteCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@created_at", DateTime.Now);
+                    command.Parameters.AddWithValue("@name", template.Name);
+                    command.Parameters.AddWithValue("@text", template.Text);
+                    command.Parameters.AddWithValue("@packageId", template.PackageId);
+                    newLongTemplateId = (long)command.ExecuteScalar();
+                    newTemplateId = (int)newLongTemplateId;
+                }
+
+                foreach (var version in template.TVersions)
+                {
+                    AddNewVersion(version, newTemplateId);
+                }
+            }
+        }
+
+        public static void AddNewVersion(TVersion version, int templateId)
+        {
+            using (var connection = new SqliteConnection($"Data Source={RuntimeConstants.BasyDatabaseFilePath}"))
+            {
+                connection.Open();
+
+                int newVersionId = -1;
+
+                string insertInitialVersionQuery = @"
+                    INSERT INTO versions (template_id, name, text, has_parameters)
+                    VALUES (@template_id, @name, @text, @has_parameters);
+                    SELECT last_insert_rowid();";
+
+                long NewLongVersionId;
+                using (var command = new SqliteCommand(insertInitialVersionQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@template_id", templateId);
+                    command.Parameters.AddWithValue("@name", version.Name);
+                    command.Parameters.AddWithValue("@text", version.Text);
+                    command.Parameters.AddWithValue("@has_parameters", version.HasParameters);
+                    NewLongVersionId = (long)command.ExecuteScalar();
+                    newVersionId = (int)NewLongVersionId;
+                }
+
+                if (version.Name == "Initial")
+                {
+                    string updateNewTemplate = @"
+                    UPDATE templates
+                        SET initial_version_id = @new_ver_id
+                        WHERE id = @new_temp_id;";
+
+                    using (var command = new SqliteCommand(updateNewTemplate, connection))
+                    {
+                        command.Parameters.AddWithValue("@new_ver_id", newVersionId);
+                        command.Parameters.AddWithValue("@new_temp_id", templateId);
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                if (version.HasParameters && version.Parameters.Count > 0)
+                {
+                    List<string> parameterNames = version.Parameters.Select(p => p.Name).ToList();
+                    AddParametersByVersionId(newVersionId, parameterNames, true);
                 }
             }
         }

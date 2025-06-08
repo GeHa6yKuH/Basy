@@ -1,0 +1,53 @@
+{
+  "Id": "c9d2a0a2-8de3-4d0c-a8d2-3f5f30a4f7e9",
+  "Name": "Test Package",
+  "Description": "Templates to help you get work done faster.",
+  "Version": "1.0",
+  "Templates": [
+    {
+      "Id": 1,
+      "PackageId": "c9d2a0a2-8de3-4d0c-a8d2-3f5f30a4f7e9",
+      "Name": "Quick Reply",
+      "Text": "Thank you for reaching out. I’ll get back to you shortly.",
+      "HasMoreVersions": false,
+      "Colors": [],
+      "TVersions": [],
+      "CreationDate": "2023-01-01T12:00:00Z",
+      "InitialVersionId": 0
+    },
+    {
+      "Id": 2,
+      "PackageId": "c9d2a0a2-8de3-4d0c-a8d2-3f5f30a4f7e9",
+      "Name": "Weekly Report",
+      "Text": "Here is this week’s update on the project status...",
+      "HasMoreVersions": false,
+      "Colors": [],
+      "TVersions": [],
+      "CreationDate": "2023-01-02T12:00:00Z",
+      "InitialVersionId": 0
+    },
+    {
+      "Id": 3,
+      "PackageId": "c9d2a0a2-8de3-4d0c-a8d2-3f5f30a4f7e9",
+      "Name": "Detailed Analysis",
+      "Text": "In-depth analysis template text.",
+      "HasMoreVersions": true,
+      "Colors": [],
+      "TVersions": [
+        {
+          "Id": 1,
+          "Name": "Initial Version",
+          "Text": "Detailed /Name/ analysis template initial version text.",
+          "HasParameters": true,
+          "Parameters": [
+            { "Id": 1, "Name": "DateRange" }
+          ]
+        }
+      ],
+      "CreationDate": "2023-01-03T12:00:00Z",
+      "InitialVersionId": 1
+    }
+  ]
+}
+
+

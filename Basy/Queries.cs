@@ -12,12 +12,14 @@ namespace Basy
         public const string CreateTemplatesTable = @"
                        CREATE TABLE IF NOT EXISTS templates (
                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       packageId INTEGER,
                        name TEXT NOT NULL,
                        text TEXT NOT NULL,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        has_more_versions INTEGER NOT NULL,
                        initial_version_id INTEGER,
                        FOREIGN KEY (initial_version_id) REFERENCES versions(id) ON DELETE CASCADE
+                       FOREIGN KEY (packageId) REFERENCES Packages(id) ON DELETE CASCADE
            )";
 
         public const string CreateVersionsTable = @"
@@ -61,6 +63,15 @@ namespace Basy
                        action TEXT NOT NULL,
                        type TEXT NOT NULL,
                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+           )";
+
+        public const string CreatePackagesTable = @"
+                       CREATE TABLE IF NOT EXISTS packages (
+                       id TEXT PRIMARY KEY,
+                       name TEXT NOT NULL,
+                       description TEXT NOT NULL,
+                       version TEXT DEFAULT '1',
+                       CreatedAt TEXT DEFAULT (datetime('now'))
            )";
 
     }

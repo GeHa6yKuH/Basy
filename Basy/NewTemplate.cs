@@ -33,8 +33,8 @@ namespace Basy
             int newInitialVersionId = -1;
 
             string insertQuery = @"
-                    INSERT INTO templates (name, text, created_at, has_more_versions, initial_version_id) 
-                    VALUES (@name, @text, @created_at, 0, NULL);
+                    INSERT INTO templates (packageId, name, text, created_at, has_more_versions, initial_version_id) 
+                    VALUES (NULL, @name, @text, @created_at, 0, NULL);
                     SELECT last_insert_rowid();";
 
             long newTemplateId;
